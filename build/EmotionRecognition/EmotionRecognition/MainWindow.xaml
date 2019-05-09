@@ -1,6 +1,12 @@
 ﻿<Window x:Class="EmotionRecognition.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModels="clr-namespace:EmotionRecognition.ViewModels"
         Title="Emotion Recognition" Height="1500" Width="1500" WindowStartupLocation="Manual" WindowState="Normal">
-    
+
+
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel/>
+    </Window.DataContext>
+
     <!-- Better to fit Height and Width to Screen Height and Width ??-->
 
     <Grid Margin="50,80,50,50">

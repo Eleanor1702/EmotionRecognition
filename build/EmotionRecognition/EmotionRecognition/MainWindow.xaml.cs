@@ -13,9 +13,5 @@ namespace EmotionRecognition
             InitializeComponent();
         }
 
-        private void Window_SourceInitialized(object sender, System.EventArgs e)
-        {
-
-        }
     }
 }
