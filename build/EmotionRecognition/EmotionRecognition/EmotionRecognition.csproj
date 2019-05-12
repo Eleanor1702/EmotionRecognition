@@ -52,14 +52,17 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Compile Include="Data\EmotionEnum.cs" />
     <Compile Include="Models\GameClass.cs" />
+    <Compile Include="Models\NNResult.cs" />
+    <Compile Include="Models\UserMissingException.cs" />
     <Compile Include="Models\VideoClass.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Services\NNUnit.cs" />
     <Compile Include="Services\RandomEmotionGenerator.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -103,6 +106,11 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Thinking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Laughing.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
