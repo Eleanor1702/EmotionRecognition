@@ -32,7 +32,5 @@ namespace EmotionRecognition.Services
         /// </summary>
         /// <returns></returns>
         public EmotionEnum GetActualRandomEmotion() => _actualEmotion;
-
-
     }
 }
