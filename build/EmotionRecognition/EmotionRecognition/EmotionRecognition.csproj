@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,8 +65,8 @@
     <Compile Include="Models\GameClass.cs" />
     <Compile Include="Models\NNResult.cs" />
     <Compile Include="Models\UserMissingException.cs" />
-    <Compile Include="Models\VideoClass.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Services\BitmapConverter.cs" />
     <Compile Include="Services\NNUnit.cs" />
     <Compile Include="Services\RandomEmotionGenerator.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -111,10 +112,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Thinking.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Laughing.png" />
+    <Resource Include="Images\Angry.png" />
+    <Resource Include="Images\Disgust.png" />
+    <Resource Include="Images\Fear.png" />
+    <Resource Include="Images\Happy.png" />
+    <Resource Include="Images\Neutral.png" />
+    <Resource Include="Images\Sad.png" />
+    <Resource Include="Images\Surprise.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

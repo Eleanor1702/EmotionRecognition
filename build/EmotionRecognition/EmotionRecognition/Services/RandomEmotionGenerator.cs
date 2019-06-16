@@ -1,36 +1,17 @@
 ﻿using System;
-using EmotionRecognition.Data;
 
-namespace EmotionRecognition.Services
-{
-    public class RandomEmotionGenerator
-    {
-        private EmotionEnum _actualEmotion;
+namespace EmotionRecognition.Services {
 
-        public RandomEmotionGenerator()
-        {
-            //Initial emotion creating
-            CreateRandomEmotion();
-        }
+	public class RandomEmotionGenerator {
 
-        /// <summary>
-        /// Creates a random Emotion
-        /// </summary>
-        /// <returns></returns>
-        public void CreateRandomEmotion()
-        {
-            Random random = new Random();
-            int enumCount = Enum.GetNames(typeof(EmotionEnum)).Length;
-            int randomNumber = random.Next(0, enumCount+1);
+		private static string[] emotions = new string[] { "Angry", "Disgust", "Fear", "Happy", "Neutral", "Sad", "Surprise" };
 
-            _actualEmotion = (EmotionEnum) randomNumber;
-        }
-
-        /// <summary>
-        /// Gets the actual random emotion
-        /// For new random emotion call CreateRandomEmotion
-        /// </summary>
-        /// <returns></returns>
-        public EmotionEnum GetActualRandomEmotion() => _actualEmotion;
+		//return a random Emotion
+        public static string generate() {
+			Random random = new Random();
+			int index = random.Next(0, emotions.Length);
+			
+			return emotions[index];
+		}
     }
 }

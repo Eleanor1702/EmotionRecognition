@@ -1,6 +1,6 @@
 ﻿namespace EmotionRecognition.Models {
 
-    /// <summary> This Class presents the result of NN Unit </summary>
+    //This Class presents the result of NN Unit
 
     class NNResult {
         private string emotionName;

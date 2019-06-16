@@ -30,8 +30,9 @@ namespace EmotionRecognition
         //This Function initializes our Controller (Mainprocessor) to start the System
         public void Start() {
             MainWindowViewModel MainProcessor = new MainWindowViewModel();
-
-            MainProcessor.run();
+			
+			//start actual program
+            MainProcessor.recognizeUser();
         }
 
 		//This function is called in MainWindom.xaml while loading to get first recognized device as Camera

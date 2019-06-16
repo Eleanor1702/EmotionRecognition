@@ -2,14 +2,14 @@ using System;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using EmotionRecognition.Models;
+using EmotionRecognition.Services;
 
 namespace EmotionRecognition.ViewModels {
 
-    //This is our Controller/ViewModel
-    public class MainWindowViewModel {
+	//This is our Controller/ViewModel
+	public class MainWindowViewModel {
 
         private GameClass game;
-        private VideoClass videoClass;
 
         public MainWindowViewModel() {
             this.game = new GameClass();
@@ -39,63 +39,102 @@ namespace EmotionRecognition.ViewModels {
             }));
         }
 
+		//clear Content of Emoji and Points after Game end
+		private void resetGame() {
+			Application.Current.Dispatcher.Invoke(new Action(() => {
+				MainWindow.main.Emoji.Source = null;
+				MainWindow.main.Points.Content = null;
+			}));
+		}
+
         //Main function of Game Logic
-        public void run() {
-            //Will be a HUGE while loop
+        public void run(bool userExist) {
 
-            //Random Emotion Generator in a simple way
-            string[] emotions = new string[] { "Laughing", "Thinking" };
-            Random random = new Random();
-            int index = random.Next(0, emotions.Length);
-            string emotion = emotions[index];
+			//Main Loop while User Exist
+			while(userExist) {
 
-            //wait for 2 Seconds to recognize User
-            System.Threading.Thread.Sleep(2000);
+				System.Threading.Thread.Sleep(3000);
+				updateUserMsg("Versuchen Sie diesen Emoji nachzumachen");
 
-            updateUserMsg("Willkommen zum Spiel! Viel Spaß!");
+				//Random Emotion Generator
+				string emotion = RandomEmotionGenerator.generate();
+				updateEmotion(emotion);
 
-            System.Threading.Thread.Sleep(2000);
+				System.Threading.Thread.Sleep(3000);
 
-            updateEmotion(emotion);
-            updateUserMsg("Versuchen Sie diesen Emoji nachzumachen");
+				//Announce registering the emotion of user in 5 seconds
+				for (int i = 5; i > 0; i--)
+				{
+					updateUserMsg("Emotion wird analysiert in: " + i);
+					System.Threading.Thread.Sleep(1000);
+				}
 
-            System.Threading.Thread.Sleep(2000);
+				//capture Image
+				BitmapSource img = null;
+				Application.Current.Dispatcher.Invoke(new Action(() => {
+					img = BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage());
+				}));
 
-            //Announce registering the emotion of user in 5 seconds
-            for (int i = 5; i > 0; i--) {
-                updateUserMsg("Emotion wird analysiert in: " + i);
+				//Wait message while processing
+				updateUserMsg("Bild wird analysiert...");
 
-                System.Threading.Thread.Sleep(1000);
-            }
+				//this try and catch serves handling the exception of a missing user during Gameplay
+				try
+				{
+					//Get random generated Emoji from Emotiongenerator in Services. Usually captured Image should be passed here as well
+					bool result = game.CompareEmotion(img, emotion);
 
-            //Wait message while processing
-            updateUserMsg("Bild wird analysiert...");
+					System.Threading.Thread.Sleep(3000);
 
-            //this try and catch serves handling the exception of a missing user during Gameplay
-            try {
-                //Get random generated Emoji from Emotiongenerator in Services. Usually captured Image should be passed here as well
-                bool result = game.CompareEmotion(emotion);
+					//Rate the results and update UI
+					if (result == true)
+					{
+						updateUserMsg("Jawohl! Gut gemacht!");
+						refreshPoints();
+						System.Threading.Thread.Sleep(2000);
+					}
+					else
+					{
+						updateUserMsg("Leider falsch! Nächster Versuch..");
+						refreshPoints();
+						System.Threading.Thread.Sleep(2000);
+					}
 
-                System.Threading.Thread.Sleep(3000);
+				}
+				catch (UserMissingException)
+				{
 
-                //Rate the results and update UI
-                if (result == true) {
-                    updateUserMsg("Jawohl! Gut gemacht!");
-                    refreshPoints();
-                } else {
-                    updateUserMsg("Leider falsch! Nächster Versuch..");
-                    refreshPoints();
-                }
+					updateUserMsg("Spiel wurde abgebrochen! Bis zum nächsten mal!");
+					System.Threading.Thread.Sleep(5000);
 
-            } catch(UserMissingException) {
-                updateUserMsg("Spiel wurde abgebrochen!");
+					//reset game
+					resetGame();
 
-                //reset game
-                game.ResetGame();
+					//call main Loop to recognize user
+					userExist = false;
+				}
+			}
 
-                //reset points
-                refreshPoints();
-            }
-        }
-    }
+			recognizeUser();
+		}
+
+		public void recognizeUser(){
+			while(true){
+
+				updateUserMsg("Gib uns 5 sekunden um dich zu erkenenn");
+				System.Threading.Thread.Sleep(5000);
+
+				//send video instance to GameStart to check if user Exist
+				bool userExist = false;
+				Application.Current.Dispatcher.Invoke(new Action(() => {
+					userExist = game.StartGame(BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage()));
+				}));
+
+				if (userExist){
+					updateUserMsg("Willkommen zum Spiel! Viel Spaß!");
+					run(userExist);
+				}
+			}
+		}
+	}
 }

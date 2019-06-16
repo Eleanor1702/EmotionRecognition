@@ -1,5 +1,5 @@
 ﻿
-    <!--WebCameraCapture.dll uses a Win32 handle to show the Video Stream. This seems to not be compatible with very high Resolution Screens Like 4K!!! -->
+    <!--WebCameraCapture.dll uses a Win32 handle to show the Video Stream. This seems to not be compatible with very high Resolutions -->
     <Window x:Class="EmotionRecognition.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

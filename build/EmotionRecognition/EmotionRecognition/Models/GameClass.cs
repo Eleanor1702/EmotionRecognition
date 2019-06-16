@@ -1,4 +1,5 @@
 ﻿using EmotionRecognition.Services;
+using System.Windows.Media.Imaging;
 
 namespace EmotionRecognition.Models {
 
@@ -12,21 +13,22 @@ namespace EmotionRecognition.Models {
             this.points = 0;
         }
 
-        /// <summary> Get and Set Points </summary>
+        //Get and Set Points
         public int Points {
             get { return points; }
         }
 
         //for the sake of the example the parameters types are string
-        public bool CompareEmotion(string randomEmotion) {
+        public bool CompareEmotion(BitmapSource img , string randomEmotion) {
             //For example calling the func in NN Unit for analysing
             //NN analyse throws an object of NNResult where for example(EmotionName, percentage or points) are saved.
-            NNResult result = nnUnit.analyse();
+            NNResult result = nnUnit.analyse(img);
 
             //check if user DOESNT exist
             if(result.UserExist == false) {
                 throw new UserMissingException();
             }
+
             //Compare our randomEmotion and the result
             if (randomEmotion == result.EmotionName) {
                 //save points
@@ -40,24 +42,13 @@ namespace EmotionRecognition.Models {
             return false;
         }
 
+		//check if user Exist to Start Game
+		public bool StartGame(BitmapSource img) {
+			if (nnUnit.CheckUserExist(img)) {
+				return true;
+			}
 
-        /// <summary> Resets the GameMode </summary>
-        public void ResetGame() {
-
-            //save user & points to Leaderboard when available
-
-            //reset points
-            points = 0;
-
-            //show leaderboard for 10 seconds maybe?
-        }
-
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //[NotifyPropertyChangedInvocator]
-        //protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
+			return false;
+		}
     }
 }
