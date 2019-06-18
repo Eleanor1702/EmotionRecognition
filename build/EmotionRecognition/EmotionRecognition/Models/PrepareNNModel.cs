@@ -23,10 +23,10 @@ namespace EmotionRecognition.Models
             neuralNetProcess.StartInfo.UseShellExecute = false;
             neuralNetProcess.StartInfo.RedirectStandardOutput = true;
             //Console.WriteLine(startInfo);
-            StartETI();
+            StartEmoRecTableInterpreter();
 
         }
-        public void StartETI()
+        public void StartEmoRecTableInterpreter()
         {
             try
             {
