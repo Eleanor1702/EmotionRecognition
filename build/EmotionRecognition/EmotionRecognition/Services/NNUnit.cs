@@ -10,11 +10,6 @@ namespace EmotionRecognition.Services {
     public class NNUnit {
 
 		public ReturnObject analyse(BitmapSource img) {
-            //CheckUserExist for up to date user Existence
-            //first 2 parameters should be provided by NNUnit through a function
-
-
-            //ReturnObject tst = new ReturnObject("Angry", 30, CheckUserExist(img));
 
             //save bitmap pic in folder
             saveImage(img);
