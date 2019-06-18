@@ -11,13 +11,13 @@ namespace EmotionRecognition.Models
         private ProcessStartInfo startInfo;
         private ReturnObject returnObject = new ReturnObject("Default", 999, ReturnObject.Type.NoFaceDetected);
 
-        public PrepareModel(string pathToScript, string pathToPicture)
+        public PrepareModel(/*string pathToScript, string pathToPicture*/)
         {
             //Console.WriteLine("PreareModel called");
             //Console.WriteLine("\twith:\n\t" + pathToScript + "\n\t" + pathToPicture + "\n\t" + Directory.GetCurrentDirectory());
             neuralNetProcess = new Process();
             neuralNetProcess.StartInfo.FileName = "Python.exe";
-            neuralNetProcess.StartInfo.Arguments = pathToScript + " " + pathToPicture;
+            neuralNetProcess.StartInfo.Arguments = "camera_roll.py" + " " + @"Image_Storage/";
             neuralNetProcess.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
             neuralNetProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
             neuralNetProcess.StartInfo.UseShellExecute = false;
