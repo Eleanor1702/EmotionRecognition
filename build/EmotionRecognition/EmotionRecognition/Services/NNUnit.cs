@@ -6,12 +6,12 @@ namespace EmotionRecognition.Services {
 
     //This Class presents the NN Unit. The Code presented here is just an example.
 
-    class NNUnit {
+    public class NNUnit {
 
-		public NNResult analyse(BitmapSource img) {
-			//CheckUserExist for up to date user Existence
-			//first 2 parameters should be provided by NNUnit through a function
-            NNResult tst = new NNResult("Angry", 30, CheckUserExist(img));
+		public ReturnObject analyse(BitmapSource img) {
+            //CheckUserExist for up to date user Existence
+            //first 2 parameters should be provided by NNUnit through a function
+            ReturnObject tst = new ReturnObject("Angry", 30, CheckUserExist(img));
             return tst;
         }
 

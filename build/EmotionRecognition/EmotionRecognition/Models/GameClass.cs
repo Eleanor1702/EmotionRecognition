@@ -22,15 +22,15 @@ namespace EmotionRecognition.Models {
         public bool CompareEmotion(BitmapSource img , string randomEmotion) {
             //For example calling the func in NN Unit for analysing
             //NN analyse throws an object of NNResult where for example(EmotionName, percentage or points) are saved.
-            NNResult result = nnUnit.analyse(img);
+            ReturnObject result = nnUnit.analyse(img);
 
             //check if user DOESNT exist
-            if(result.UserExist == false) {
+            if(result.FaceDetected == false) {
                 throw new UserMissingException();
             }
 
             //Compare our randomEmotion and the result
-            if (randomEmotion == result.EmotionName) {
+            if (randomEmotion == result.Emotion) {
                 //save points
                 points += result.Percentage;
 

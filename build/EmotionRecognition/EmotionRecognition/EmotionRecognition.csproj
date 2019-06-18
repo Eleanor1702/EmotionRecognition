@@ -62,8 +62,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Data\EmotionEnum.cs" />
+    <Compile Include="Models\EmotionTableInterpreter.cs" />
     <Compile Include="Models\GameClass.cs" />
-    <Compile Include="Models\NNResult.cs" />
+    <Compile Include="Models\PrepareNNModel.cs" />
+    <Compile Include="Models\ReturnObject.cs" />
     <Compile Include="Models\UserMissingException.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\BitmapConverter.cs" />
