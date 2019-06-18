@@ -11,8 +11,18 @@ namespace EmotionRecognition.Services {
 		public ReturnObject analyse(BitmapSource img) {
             //CheckUserExist for up to date user Existence
             //first 2 parameters should be provided by NNUnit through a function
-            ReturnObject tst = new ReturnObject("Angry", 30, CheckUserExist(img));
-            return tst;
+
+
+            //ReturnObject tst = new ReturnObject("Angry", 30, CheckUserExist(img));
+
+
+            PrepareModel prepareModel = new PrepareModel(); //Auruf : EmotionRecognition_NNProcessComb.exe camera_roll.py Images/
+            ReturnObject returnObject = prepareModel.GetReturnObject();
+
+
+
+
+            return returnObject;
         }
 
 		public bool CheckUserExist(BitmapSource img) {
