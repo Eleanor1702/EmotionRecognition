@@ -20,13 +20,17 @@ namespace EmotionRecognition.Models {
 
         //for the sake of the example the parameters types are string
         public bool CompareEmotion(BitmapSource img , string randomEmotion) {
-            //For example calling the func in NN Unit for analysing
-            //NN analyse throws an object of NNResult where for example(EmotionName, percentage or points) are saved.
+            //NN analyse throws an object with EmotionName, percentage and user Recognition.
             ReturnObject result = nnUnit.analyse(img);
 
-            //check if user DOESNT exist (During Game)
-            if(result.FaceDetected == ReturnObject.Type.NoFaceDetected) {
-                throw new UserMissingException();
+            //check if NNUnit threw an Exception (During Game)
+            switch (result.FaceDetected) {
+                case ReturnObject.Type.NoFaceDetected:
+                    throw new UserMissingException();
+                case ReturnObject.Type.MoreThanOneFaceDetected:
+                    throw new MoreThanOneUserException();
+                case ReturnObject.Type.Exception:
+                    throw new UnknownException();
             }
 
             //Compare our randomEmotion and the result
@@ -43,12 +47,13 @@ namespace EmotionRecognition.Models {
         }
 
 		//check if user Exist to Start Game
-		public bool StartGame(BitmapSource img) {
-			if (nnUnit.CheckUserExist(img)) {
-				return true;
-			}
-
-			return false;
+		public ReturnObject.Type TryToRecognizeUser(BitmapSource bitPic ) {
+            return nnUnit.CheckUserExist(bitPic);
 		}
+
+        //reset Game
+        public void resetGame() {
+            this.points = 0;
+        }
     }
 }

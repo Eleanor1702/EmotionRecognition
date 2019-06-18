@@ -29,17 +29,5 @@
                 Percentage = 0;
             }
         }
-
-        public bool getFaceDetected() {
-            switch (FaceDetected)
-            {
-                case Type.FaceDetected: return true;
-
-                default:
-                    return false;
-            }
-
-            
-        }
     }
 }

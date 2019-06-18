@@ -61,12 +61,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Data\EmotionEnum.cs" />
     <Compile Include="Models\EmotionTableInterpreter.cs" />
     <Compile Include="Models\GameClass.cs" />
     <Compile Include="Models\PrepareNNModel.cs" />
     <Compile Include="Models\ReturnObject.cs" />
-    <Compile Include="Models\UserMissingException.cs" />
+    <Compile Include="Models\RecognizedUserExceptions.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\BitmapConverter.cs" />
     <Compile Include="Services\NNUnit.cs" />
@@ -114,13 +113,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Angry.png" />
-    <Resource Include="Images\Disgust.png" />
-    <Resource Include="Images\Fear.png" />
-    <Resource Include="Images\Happy.png" />
-    <Resource Include="Images\Neutral.png" />
-    <Resource Include="Images\Sad.png" />
-    <Resource Include="Images\Surprise.png" />
+    <Resource Include="Emoji\Angry.png" />
+    <Resource Include="Emoji\Disgust.png" />
+    <Resource Include="Emoji\Fear.png" />
+    <Resource Include="Emoji\Happy.png" />
+    <Resource Include="Emoji\Neutral.png" />
+    <Resource Include="Emoji\Sad.png" />
+    <Resource Include="Emoji\Surprise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,6 @@
 ﻿using EmotionRecognition.Models;
 using System;
+using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace EmotionRecognition.Services {
@@ -15,28 +16,33 @@ namespace EmotionRecognition.Services {
 
             //ReturnObject tst = new ReturnObject("Angry", 30, CheckUserExist(img));
 
-            PrepareModel prepareModel = new PrepareModel(); //Auruf : EmotionRecognition_NNProcessComb.exe camera_roll.py Images/
+            //save bitmap pic in folder
+            saveImage(img);
+
+            //Call: EmotionRecognition_NNProcessComb.exe camera_roll.py Images/
+            PrepareModel prepareModel = new PrepareModel();
             ReturnObject returnObject = prepareModel.GetReturnObject();
 
             return returnObject;
         }
 
-        //This Function should be called to check if User exist... And handle exception if 
-		public bool CheckUserExist(BitmapSource img) {
-            PrepareModel prepareModel = new PrepareModel(); //Auruf : EmotionRecognition_NNProcessComb.exe camera_roll.py Images/
-            ReturnObject returnObject = prepareModel.GetReturnObject();
+        //This Function should be called to check if User exist... And handle exceptions
+		public ReturnObject.Type CheckUserExist(BitmapSource bitPic) {
 
-            //This line uncommented when both parts connected!!!!
-            //bool userRecognized = returnObject.getFaceDetected();
-
-            //this random is taking the functionality of "NNUnit recognizing a user"
-            bool[] boolValue = new bool[] { true, false };
-			Random random = new Random();
-			int index = random.Next(0, boolValue.Length);
-			bool userRecognized = boolValue[index];
-
-			//if user recognized by NNUnit, a true is returned to allow GameStart in MainWindow & update NNResult in analyse
-			return userRecognized;
+            return analyse(bitPic).FaceDetected;
 		}
+
+        //sava image in Folder to be used
+        private void saveImage(BitmapSource bitPic) {
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitPic));
+            encoder.QualityLevel = 100;
+
+            //relative Path
+            string filepath = "Images\\capture.jpg";
+            FileStream fstream = new FileStream(filepath, FileMode.Create);
+            encoder.Save(fstream);
+            fstream.Close();
+        }
     }
 }

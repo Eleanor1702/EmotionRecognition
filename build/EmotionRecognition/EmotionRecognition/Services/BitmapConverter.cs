@@ -4,8 +4,7 @@ using System.Drawing.Imaging;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace EmotionRecognition.Services
-{
+namespace EmotionRecognition.Services {
 
 	//This class with a static method to convert Bitmap objects produced by VideoStream to BitmapSource
 	class BitmapConverter {

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using EmotionRecognition.Models;
@@ -27,7 +28,7 @@ namespace EmotionRecognition.ViewModels {
         private void updateEmotion(string emotion) {
             Application.Current.Dispatcher.Invoke(new Action(() => {
                 //Get generated Emoji and update Emoji Div Content
-                MainWindow.main.Emoji.Source = new BitmapImage(new Uri("Images/" + emotion + ".png", UriKind.Relative));
+                MainWindow.main.Emoji.Source = new BitmapImage(new Uri("Emoji/" + emotion + ".png", UriKind.Relative));
             }));
         }
 
@@ -45,13 +46,16 @@ namespace EmotionRecognition.ViewModels {
 				MainWindow.main.Emoji.Source = null;
 				MainWindow.main.Points.Content = null;
 			}));
+
+            //reset points in game
+            this.game.resetGame();
 		}
 
         //Main function of Game Logic
-        public void run(bool userExist) {
+        public void run() {
 
-			//Main Loop while User Exist
-			while(userExist) {
+			//Main Loop
+			while(true) {
 
 				System.Threading.Thread.Sleep(3000);
 				updateUserMsg("Versuchen Sie diesen Emoji nachzumachen");
@@ -63,8 +67,7 @@ namespace EmotionRecognition.ViewModels {
 				System.Threading.Thread.Sleep(3000);
 
 				//Announce registering the emotion of user in 5 seconds
-				for (int i = 5; i > 0; i--)
-				{
+				for (int i = 5; i > 0; i--) {
 					updateUserMsg("Emotion wird analysiert in: " + i);
 					System.Threading.Thread.Sleep(1000);
 				}
@@ -79,30 +82,22 @@ namespace EmotionRecognition.ViewModels {
 				updateUserMsg("Bild wird analysiert...");
 
 				//this try and catch serves handling the exception of a missing user during Gameplay
-				try
-				{
+				try {
 					//Get random generated Emoji from Emotiongenerator in Services. Usually captured Image should be passed here as well
 					bool result = game.CompareEmotion(img, emotion);
 
-					System.Threading.Thread.Sleep(3000);
-
 					//Rate the results and update UI
-					if (result == true)
-					{
+					if (result) {
 						updateUserMsg("Jawohl! Gut gemacht!");
 						refreshPoints();
 						System.Threading.Thread.Sleep(2000);
-					}
-					else
-					{
+					} else {
 						updateUserMsg("Leider falsch! Nächster Versuch..");
 						refreshPoints();
 						System.Threading.Thread.Sleep(2000);
 					}
 
-				}
-				catch (UserMissingException)
-				{
+				} catch (UserMissingException) {
 
 					updateUserMsg("Spiel wurde abgebrochen! Bis zum nächsten mal!");
 					System.Threading.Thread.Sleep(5000);
@@ -110,9 +105,20 @@ namespace EmotionRecognition.ViewModels {
 					//reset game
 					resetGame();
 
-					//call main Loop to recognize user
-					userExist = false;
-				}
+                    //exit while loop
+                    break;
+
+				} catch (MoreThanOneUserException) {
+
+                    updateUserMsg("Wir erkennen mehr als eine Person. Die Runde wurde abgebrochen!");
+                    System.Threading.Thread.Sleep(5000);
+
+                } catch (UnknownException) {
+
+                    updateUserMsg("Unbekannter Fehler ist aufgetreten! Die Runde wurde abgebrochen!");
+                    System.Threading.Thread.Sleep(5000);
+
+                }
 			}
 
 			recognizeUser();
@@ -124,16 +130,25 @@ namespace EmotionRecognition.ViewModels {
 				updateUserMsg("Gib uns 5 sekunden um dich zu erkenenn");
 				System.Threading.Thread.Sleep(5000);
 
-				//send video instance to GameStart to check if user Exist
-				bool userExist = false;
+                //send video instance to NNUnit to check if user exist
+                ReturnObject.Type recognizedUserType = ReturnObject.Type.Exception;
+
 				Application.Current.Dispatcher.Invoke(new Action(() => {
-					userExist = game.StartGame(BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage()));
+					recognizedUserType = game.TryToRecognizeUser(BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage()));
 				}));
 
-				if (userExist){
-					updateUserMsg("Willkommen zum Spiel! Viel Spaß!");
-					run(userExist);
-				}
+                switch (recognizedUserType) {
+                    case ReturnObject.Type.FaceDetected:
+                        updateUserMsg("Willkommen zum Spiel! Viel Spaß!");
+                        run();
+                        break;
+                    case ReturnObject.Type.MoreThanOneFaceDetected:
+                        updateUserMsg("Wir erkennen mehr als eine Person. Das Spiel konnte nicht gestartet werden!");
+                        break;
+                    case ReturnObject.Type.Exception:
+                        updateUserMsg("Ein Fehler ist aufgetreten! Bitte wenden Sie sich an einen Mitarbeiter!");
+                        break;
+                }
 			}
 		}
 	}
