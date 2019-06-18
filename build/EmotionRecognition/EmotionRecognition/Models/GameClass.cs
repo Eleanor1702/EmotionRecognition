@@ -25,7 +25,7 @@ namespace EmotionRecognition.Models {
             ReturnObject result = nnUnit.analyse(img);
 
             //check if user DOESNT exist (During Game)
-            if(result.FaceDetected == false) {
+            if(result.FaceDetected == ReturnObject.Type.NoFaceDetected) {
                 throw new UserMissingException();
             }
 

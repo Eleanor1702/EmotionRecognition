@@ -31,7 +31,15 @@
         }
 
         public bool getFaceDetected() {
-            return FaceDetected;
+            switch (FaceDetected)
+            {
+                case Type.FaceDetected: return true;
+
+                default:
+                    return false;
+            }
+
+            
         }
     }
 }
