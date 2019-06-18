@@ -42,9 +42,6 @@ namespace EmotionRecognition.Models {
             return false;
         }
 
-        
-
-
 		//check if user Exist to Start Game
 		public bool StartGame(BitmapSource img) {
 			if (nnUnit.CheckUserExist(img)) {

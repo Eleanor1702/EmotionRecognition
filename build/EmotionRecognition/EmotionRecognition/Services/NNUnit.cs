@@ -15,18 +15,14 @@ namespace EmotionRecognition.Services {
 
             //ReturnObject tst = new ReturnObject("Angry", 30, CheckUserExist(img));
 
-
             PrepareModel prepareModel = new PrepareModel(); //Auruf : EmotionRecognition_NNProcessComb.exe camera_roll.py Images/
             ReturnObject returnObject = prepareModel.GetReturnObject();
-
-
-
 
             return returnObject;
         }
 
 		public bool CheckUserExist(BitmapSource img) {
-			//this random is taking the functionality of NNUnit recognizing a user
+			//this random is taking the functionality of "NNUnit recognizing a user"
 			bool[] boolValue = new bool[] { true, false };
 			Random random = new Random();
 			int index = random.Next(0, boolValue.Length);
