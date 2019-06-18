@@ -9,7 +9,7 @@ namespace EmotionRecognition.Models
         private Process neuralNetProcess;
         private string pathToCmd = @"C:\Windows\System32\cmd.exe";
         private ProcessStartInfo startInfo;
-        private ReturnObject returnObject = new ReturnObject("Default", 999, true);
+        private ReturnObject returnObject = new ReturnObject("Default", 999, ReturnObject.Type.NoFaceDetected);
 
         public PrepareModel(string pathToScript, string pathToPicture)
         {
@@ -34,7 +34,9 @@ namespace EmotionRecognition.Models
             }
             catch (Exception ex)
             {
-                //Was will GUI haben?
+                returnObject.FaceDetected = ReturnObject.Type.Exception;
+                returnObject.Emotion = "Exception thrown!";
+                returnObject.Percentage = 0;
             }
         }
 

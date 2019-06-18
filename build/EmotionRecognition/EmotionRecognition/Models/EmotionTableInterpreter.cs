@@ -28,13 +28,14 @@ namespace EmotionRecognition.Models
             }
         }
 
+        private const string FACES_FOUND_COUNT = "FacesFoundCount";
         private const string SINGLE_PIC_OUTPUT = "SinglePicOutput";
         private const string HIGHEST_EMO_INDEX = "HighestEmotionIndex";
         private const string EMO_WEIGHT_ARRAY = "EmotionWeightArray";
         private const string NO_EMO_DETECED = "No Emotion Deteced!";
 
         private string[] EmotionDef = { "Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral" };
-        private const string pattern = @"(?<" + SINGLE_PIC_OUTPUT + @">\(ar+ay\(\[" +
+        private const string patternArray = @"(?<" + SINGLE_PIC_OUTPUT + @">\(ar+ay\(\[" +
                                         @"(?<" + HIGHEST_EMO_INDEX + @">[0-6])([,][ |\r|\n]*[0-6])*\][, dtype=int[32|64]*]*\)[,][ |\r|\n]*" +
                                         @"(?<" + EMO_WEIGHT_ARRAY + @"> ar+ay\(\[" +
                                             @"(?<" + EMO_WEIGHT_ARRAY + @"0>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r|\n]*" +
@@ -44,6 +45,7 @@ namespace EmotionRecognition.Models
                                             @"(?<" + EMO_WEIGHT_ARRAY + @"4>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r|\n]*" +
                                             @"(?<" + EMO_WEIGHT_ARRAY + @"5>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r|\n]*" +
                                             @"(?<" + EMO_WEIGHT_ARRAY + @"6>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)))";
+        private const string patternFaceFoundCount = @"(Faces found:  (?<" + FACES_FOUND_COUNT + @">[0-9]*)){1}";
 
         private Dictionary<string, EmoCollValue> hdEmoCollection = new Dictionary<string, EmoCollValue>(); // heighest deteced Emotions Collection
 
@@ -51,6 +53,9 @@ namespace EmotionRecognition.Models
         private float rxOutHeighestEmoWeight;
 
         private string netOutput;
+        private bool severalFacesFound = false;
+        private bool noFacesFound = false;
+        private int noFaceFoundCnt = 0;
 
         private Match a_match;
         private MatchCollection a_matchCollection;
@@ -59,18 +64,50 @@ namespace EmotionRecognition.Models
         {
             neuralNetProcess.Start();
             netOutput = neuralNetProcess.StandardOutput.ReadToEnd();
-            a_matchCollection = Regex.Matches(netOutput, pattern);
+
+            a_matchCollection = Regex.Matches(netOutput, patternFaceFoundCount);
             if (a_matchCollection.Count > 0)
             {
                 foreach (Match singlePic in a_matchCollection)
                 {
-                    Evaluate(singlePic.Groups[SINGLE_PIC_OUTPUT].Value);
+                    if (Convert.ToInt32(singlePic.Groups[SINGLE_PIC_OUTPUT].Value) > 1)
+                    {
+                        severalFacesFound = true;
+                        break;
+                    }
+                    
+                    if(Convert.ToInt32(singlePic.Groups[SINGLE_PIC_OUTPUT].Value) == 0)
+                    {
+                        noFacesFound = true;
+                        noFaceFoundCnt++;
+                    }
                 }
             }
-            KeyValuePair<string, EmoCollValue> resultEmo = GetEmotion();
-            //Console.WriteLine("Deteced Emotion:\n" +
-                          //    "\t" + resultEmo.Key + " | " + resultEmo.Value.finalPercentage + "%");
-            i_returnObject = new ReturnObject(resultEmo.Key, resultEmo.Value.finalPercentage, (resultEmo.Key == NO_EMO_DETECED ? false : true));
+            if (!severalFacesFound)
+            {
+                if (noFacesFound && a_matchCollection.Count > noFaceFoundCnt)
+                {
+                    a_matchCollection = Regex.Matches(netOutput, patternArray);
+                    if (a_matchCollection.Count > 0)
+                    {
+                        foreach (Match singlePic in a_matchCollection)
+                        {
+                            Evaluate(singlePic.Groups[SINGLE_PIC_OUTPUT].Value);
+                        }
+                    }
+                    KeyValuePair<string, EmoCollValue> resultEmo = GetEmotion();
+                    //Console.WriteLine("Deteced Emotion:\n" +
+                    //    "\t" + resultEmo.Key + " | " + resultEmo.Value.finalPercentage + "%");
+                    i_returnObject = new ReturnObject(resultEmo.Key, resultEmo.Value.finalPercentage, ReturnObject.Type.FaceDetected);
+                } else
+                {
+                    i_returnObject = new ReturnObject(NO_EMO_DETECED, 0, ReturnObject.Type.NoFaceDetected);
+                }
+            } else if(severalFacesFound)
+            {
+                i_returnObject = new ReturnObject(NO_EMO_DETECED, 0, ReturnObject.Type.MoreThanOneFaceDetected);
+            }
+            
         }
 
         private KeyValuePair<string, EmoCollValue> GetEmotion()
@@ -142,7 +179,7 @@ namespace EmotionRecognition.Models
 
         private void Evaluate(string singlePicOutput)
         {
-            a_match = Regex.Match(singlePicOutput, pattern);
+            a_match = Regex.Match(singlePicOutput, patternArray);
 
             if (a_match.Success)
             {
