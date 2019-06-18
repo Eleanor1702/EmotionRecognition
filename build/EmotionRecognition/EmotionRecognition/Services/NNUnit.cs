@@ -1,5 +1,4 @@
 ﻿using EmotionRecognition.Models;
-using System;
 using System.IO;
 using System.Windows.Media.Imaging;
 
@@ -14,14 +13,14 @@ namespace EmotionRecognition.Services {
             //save bitmap pic in folder
             saveImage(img);
 
-            //Call: EmotionRecognition_NNProcessComb.exe camera_roll.py Images/
+            //Call: camera_roll.py Images/
             PrepareModel prepareModel = new PrepareModel();
             ReturnObject returnObject = prepareModel.GetReturnObject();
 
             return returnObject;
         }
 
-        //This Function should be called to check if User exist... And handle exceptions
+        //called to handle User Exceptions
 		public ReturnObject.Type CheckUserExist(BitmapSource bitPic) {
 
             return analyse(bitPic).FaceDetected;
