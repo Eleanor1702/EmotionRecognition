@@ -20,5 +20,9 @@
                 Percentage = 0;
             }
         }
+
+        public bool getFaceDetected() {
+            return FaceDetected;
+        }
     }
 }

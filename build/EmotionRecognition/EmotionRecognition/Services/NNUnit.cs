@@ -21,9 +21,16 @@ namespace EmotionRecognition.Services {
             return returnObject;
         }
 
+        //This Function should be called to check if User exist... And handle exception if 
 		public bool CheckUserExist(BitmapSource img) {
-			//this random is taking the functionality of "NNUnit recognizing a user"
-			bool[] boolValue = new bool[] { true, false };
+            PrepareModel prepareModel = new PrepareModel(); //Auruf : EmotionRecognition_NNProcessComb.exe camera_roll.py Images/
+            ReturnObject returnObject = prepareModel.GetReturnObject();
+
+            //This line uncommented when both parts connected!!!!
+            //bool userRecognized = returnObject.getFaceDetected();
+
+            //this random is taking the functionality of "NNUnit recognizing a user"
+            bool[] boolValue = new bool[] { true, false };
 			Random random = new Random();
 			int index = random.Next(0, boolValue.Length);
 			bool userRecognized = boolValue[index];

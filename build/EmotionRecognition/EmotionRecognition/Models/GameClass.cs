@@ -24,7 +24,7 @@ namespace EmotionRecognition.Models {
             //NN analyse throws an object of NNResult where for example(EmotionName, percentage or points) are saved.
             ReturnObject result = nnUnit.analyse(img);
 
-            //check if user DOESNT exist
+            //check if user DOESNT exist (During Game)
             if(result.FaceDetected == false) {
                 throw new UserMissingException();
             }
