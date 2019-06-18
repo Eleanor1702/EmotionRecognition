@@ -4,6 +4,8 @@ namespace EmotionRecognition.Services {
 
 	public class RandomEmotionGenerator {
 
+
+
 		private static string[] emotions = new string[] { "Angry", "Disgust", "Fear", "Happy", "Neutral", "Sad", "Surprise" };
 
 		//return a random Emotion
