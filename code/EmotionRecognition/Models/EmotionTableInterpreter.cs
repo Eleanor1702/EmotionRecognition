@@ -44,7 +44,7 @@ namespace EmotionRecognition.Models
                                                 "(?<" + EMO_WEIGHT_ARRAY + @"3>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r[ ]*|\n[ ]*|\r\n[ ]*|\n\r[ ]*]*" +
                                                 "(?<" + EMO_WEIGHT_ARRAY + @"4>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r[ ]*|\n[ ]*|\r\n[ ]*|\n\r[ ]*]*" +
                                                 "(?<" + EMO_WEIGHT_ARRAY + @"5>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r[ ]*|\n[ ]*|\r\n[ ]*|\n\r[ ]*]*" +
-                                                "(?<" * EMO_WEIGHT_ARRAY + @"6>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)))";
+                                                "(?<" + EMO_WEIGHT_ARRAY + @"6>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)))";
         private const string patternFaceFoundCount = @"(Faces found:  (?<" + FACES_FOUND_COUNT + @">[0-9]*)){1}";
 
         private Dictionary<string, EmoCollValue> hdEmoCollection = new Dictionary<string, EmoCollValue>(); // heighest deteced Emotions Collection
