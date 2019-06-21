@@ -70,13 +70,13 @@ namespace EmotionRecognition.Models
             {
                 foreach (Match singlePic in a_matchCollection)
                 {
-                    if (Convert.ToInt32(singlePic.Groups[SINGLE_PIC_OUTPUT].Value) > 1)
+                    if (Convert.ToInt64(singlePic.Groups[SINGLE_PIC_OUTPUT].Value) > 1)
                     {
                         severalFacesFound = true;
                         break;
                     }
                     
-                    if(Convert.ToInt32(singlePic.Groups[SINGLE_PIC_OUTPUT].Value) == 0)
+                    if(Convert.ToInt64(singlePic.Groups[SINGLE_PIC_OUTPUT].Value) == 0)
                     {
                         noFacesFound = true;
                         noFaceFoundCnt++;
