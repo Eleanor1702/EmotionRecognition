@@ -36,14 +36,14 @@ namespace EmotionRecognition.Models
 
         private string[] EmotionDef = { "Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral" };
         private const string patternArray = @"(?<" + SINGLE_PIC_OUTPUT + @">\(ar+ay\(\[" +
-                                                "(?<" + HIGHEST_EMO_INDEX + @">[0-6])([,][ |\r[ ]*|\n[ ]*|\r\n[ ]*|\n\r[ ]*]*[0-6])*\][, dtype=int[32|64]*]*\)[,][ |\r[ ]*|\n[ ]*|\r\n[ ]*|\n\r[ ]*]*" +
-                                             "(?<" + EMO_WEIGHT_ARRAY + @"> ar+ay\(\["+
-                                                "(?<" + EMO_WEIGHT_ARRAY + @"0>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r[ ]*|\n[ ]*|\r\n[ ]*|\n\r[ ]*]*" +
-                                                "(?<" + EMO_WEIGHT_ARRAY + @"1>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r[ ]*|\n[ ]*|\r\n[ ]*|\n\r[ ]*]*" +
-                                                "(?<" + EMO_WEIGHT_ARRAY + @"2>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r[ ]*|\n[ ]*|\r\n[ ]*|\n\r[ ]*]*" +
-                                                "(?<" + EMO_WEIGHT_ARRAY + @"3>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r[ ]*|\n[ ]*|\r\n[ ]*|\n\r[ ]*]*" +
-                                                "(?<" + EMO_WEIGHT_ARRAY + @"4>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r[ ]*|\n[ ]*|\r\n[ ]*|\n\r[ ]*]*" +
-                                                "(?<" + EMO_WEIGHT_ARRAY + @"5>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ |\r[ ]*|\n[ ]*|\r\n[ ]*|\n\r[ ]*]*" +
+                                                "(?<" + HIGHEST_EMO_INDEX + @">[0-6])([,][ ]*[0-6])*\][, dtype=int[32|64]*]*\)[,][ ]*" +
+                                             "(?<" + EMO_WEIGHT_ARRAY + @">ar+ay\(\["+
+                                                "(?<" + EMO_WEIGHT_ARRAY + @"0>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*" +
+                                                "(?<" + EMO_WEIGHT_ARRAY + @"1>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*" +
+                                                "(?<" + EMO_WEIGHT_ARRAY + @"2>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*" +
+                                                "(?<" + EMO_WEIGHT_ARRAY + @"3>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*" +
+                                                "(?<" + EMO_WEIGHT_ARRAY + @"4>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*" +
+                                                "(?<" + EMO_WEIGHT_ARRAY + @"5>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*" +
                                                 "(?<" + EMO_WEIGHT_ARRAY + @"6>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)))";
         private const string patternFaceFoundCount = @"(Faces found:  (?<" + FACES_FOUND_COUNT + @">[0-9]*)){1}";
 
@@ -64,7 +64,7 @@ namespace EmotionRecognition.Models
         {
             neuralNetProcess.Start();
             netOutput = neuralNetProcess.StandardOutput.ReadToEnd();
-
+			netOutput = netOutput.Replace(@"\n", "").Replace(@"\r", "").Replace(@"\t", "").Replace(@"\v", "").Replace("@\f", "");
             a_matchCollection = Regex.Matches(netOutput, patternFaceFoundCount);
             if (a_matchCollection.Count > 0)
             {
