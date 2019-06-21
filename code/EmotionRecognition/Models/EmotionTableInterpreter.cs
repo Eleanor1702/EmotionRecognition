@@ -85,7 +85,7 @@ namespace EmotionRecognition.Models
             }
             if (!severalFacesFound)
             {
-                if (noFacesFound && a_matchCollection.Count > noFaceFoundCnt)
+                if (a_matchCollection.Count >= noFaceFoundCnt)
                 {
                     a_matchCollection = Regex.Matches(netOutput, patternArray);
                     if (a_matchCollection.Count > 0)
@@ -99,7 +99,7 @@ namespace EmotionRecognition.Models
                     //Console.WriteLine("Deteced Emotion:\n" +
                     //    "\t" + resultEmo.Key + " | " + resultEmo.Value.finalPercentage + "%");
                     i_returnObject = new ReturnObject(resultEmo.Key, resultEmo.Value.finalPercentage, ReturnObject.Type.FaceDetected);
-                } else
+                } else if(/*noFacesFound &&*/ a_matchCollection.Count < noFaceFoundCnt)
                 {
                     i_returnObject = new ReturnObject(NO_EMO_DETECED, 0, ReturnObject.Type.NoFaceDetected);
                 }
