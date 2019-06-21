@@ -1,0 +1,249 @@
+\documentclass[12pt,a4paper,headinclude,twoside, plainheadsepline, open=right,numbers=noenddot]{scrreprt}
+
+%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Literaturverzeichnis
+%
+% Hier eine von zwei Varianten auswaehlen:
+% Nummern oder Buchstaben fuer Referenzen
+%\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex}
+\usepackage[backend=biber, style=numeric-comp, sorting=none]{biblatex}
+\usepackage{multicol}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{mathtools}
+\usepackage{pxfonts}
+%
+% Hier werden die Referenzen in einer separaten Datei gespeichert
+\addbibresource{Laborpraktikum.bib}
+%
+% WICHTIG: Hier wird nicht BibTeX sondern BibLateX verwendet!!
+% Deshalb nicht mit bibtex uebersetzen, sondern mit biber
+% Das kann man in jedem Tool wie TexMaker oder TexShop als Option einstellen
+%
+
+% Spezielle Einstellungen, insbesondere fuer das Literaturverzeichnis,
+% aber auch Packages wie amsmath, Groessenanpassungen etc.
+\input{./Preferences.tex}
+
+\begin{document}
+\pagenumbering{Roman} % grosse Roemische Seitenummerierung
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Titelseite
+\clearscrheadings\clearscrplain
+
+\begin{titlepage}
+\begin{figure}[thb]
+       \includegraphics[height=2.5cm]{./Images/FakIM_Vorlage_Logo_Vektor.eps}
+\end{figure}
+\begin{center}
+\rule{0pt}{0pt}
+\vfill
+
+\begin{huge}
+Emotion Recognition\\[0.75ex]
+\end{huge}
+\begin{large}
+P2 - Deep Learning Eye Catcher
+\end{large}
+
+
+\vfill
+\vfill
+
+Bericht zum Laborpraktikum\\
+im Sommersemester 2019 von\\
+\vfill
+\setlength{\columnsep}{.0cm}
+\begin{multicols}{1}
+
+\textbf{Lukas Schulz}\\
+Matrikelnummer: 1234567
+
+\textbf{Noor Alrabea}\\
+Matrikelnummer: 12345678
+\end{multicols}
+
+\begin{multicols}{2}
+\textbf{Markus Hofer}\\
+Matrikelnummer: 123456789
+
+\textbf{Benjamin Bauer}\\
+Matrikelnummer: 12345678
+\end{multicols}
+
+\begin{multicols}{2}
+\textbf{Mona Ziegler}\\
+Matrikelnummer: 3091609
+
+\textbf{Anna Will}\\
+Matrikelnummer: 12345678
+\end{multicols}
+
+
+\begin{multicols}{2}
+\textbf{Julia Karnaukh}\\
+Matrikelnummer: 12345678
+
+\textbf{David Wolf}\\
+Matrikelnummer: 12345678
+\end{multicols}
+
+\vfill
+\vfill
+\textbf{\large Fakult"at Informatik und Mathematik\\
+Ostbayerische Technische Hochschule Regensburg\\
+(OTH Regensburg)}
+\vfill
+\vfill
+
+\begin{tabular}{rl}
+Pr"ufer:   & Prof. Dr. Christoph Palm\\
+Abgabedatum:& xx. Juni 2019
+\end{tabular}
+\end{center}
+\end{titlepage}
+
+
+\pagestyle{useheadings} % normale Kopf- und Fusszeilen fuer den Rest
+\tableofcontents % Inhaltsverzeichnis
+
+
+\chapter{Einleitung}
+\label{einleitung}
+\pagenumbering{arabic} % ab jetzt arabische Nummerierung
+
+\section{Motivation und Einführung}
+Künstliche Intelligenz ist bereits in vielen Situationen des Lebens alltäglich geworden. So steckt hinter der Gesichtserkennung im Smartphone oder Sprachassistenten wie Amazons "{}Alexa"{} Künstliche Intelligenz. Der große Vorteil und Nutzen an KI liegt vor allem in der Mustererkennung und Zuordnung zu vorgegebenen Kategorien. In der Medizin spielt das vor allem bei der Verarbeitung der Ergebnisse Bildgebender Diagnoseverfahren eine große Rolle. Eine KI kann Muster in beispielsweise Röntgenbildern erkennen, und so den Arzt bei der Diagnosefindung unterstützen.
+Daran wird auch im Labor des ReMIC (Regensburg Medical Image Computing) geforscht und verschiedene Anwendungen zur Bildanalyse entwickelt. Hierbei liegt der Fokus immer mehr auf Deep-Learning Ansätzen. Um nun mehr interessierte Studierende der OTH über diese Tätigkeit zu informieren, soll eine einfache Deep-Learning Anwendung zur Emotionserkennung entwickelt werden. Um so viele Studierende wie möglich dafür zu begeistern, wurde entschieden, ein Spiel zu entwickeln. 
+
+\section{Das Programm}
+Neben der Tür des ReMIC gibt es ein "{}Schaufenster"{}, hinter diesem ist ein Bildschirm aufgebaut, der im Moment genutzt wird um allgemeine Informationen über das Labor anzuzeigen. In Zukunft soll dort zwischen den Vorlesungszeiten das entwickelte Programm spielbar sein. Hierfür wird eine Kamera über den Bildschirm aufgebaut. 
+\\
+Das Spiel wird gestartet, wenn das Gesicht eines Spielers in einem ausgewiesenen Bereich erkannt wurde. Dem Spieler wird nun eine zufällig ausgewählte Emotion vorgegeben, die er nun nachmachen soll. Das Programm ist in der Lage sieben Emotionen zu erkennen:  Neutral, Angewidert, Wütend, Glücklich, Überrascht, Traurig, Ängstlich. Die erreichte Punktzahl pro Runde ergibt sich daraus, wie gut die Emotion durch das Programm erkannt werden konnte. Die höchste pro Runde erreichbare Punktzahl ist 100, für eine zu 100\% erkannte Emotion. \\ Falls kein oder mehrere Gesichter erkannt wurden, soll eine Fehlermeldung auf dem Bildschirm ausgegeben werden. \\ Das Spiel endet, wenn der Spieler den von der Kamera erfassten Bereich verlässt. Danach werden die Bilddaten des Spielers gelöscht. 
+%Fehlermeldungen wenn kein oder mehrere Gesichter erkannt werden
+
+
+\section{Künstliche Intelligenz und Deep Learning}
+% Eine Künstliche Intelligenz soll in der Lage sein, Problemstellungen, die der Mensch intuitiv lösen würde, auf eine ähnliche Art und Weise lösen zu können. 
+Traditionell liegen die Stärken einer Maschine bei rechenaufwändigen, für den Menschen kaum oder nur sehr langsam lösbare Aufgaben. Auch große Datenmengen stellen dabei für einen Computer keine große Herausforderung dar. Im Gegensatz dazu sind Probleme, die der Mensch intuitiv oder situationsabhängig lösen würde, durch konventionelle Programmierung kaum erfassbar. Der Programmierer müsste jede mögliche Situation abfangen, in vielen Fällen ist dies aufgrund des Umfangs nicht effizient umsetzbar. Bei der Emotionserkennung  beispielsweise hat der Mensch keine Schwierigkeiten, in verschiedenen Gesichtern Emotionen zu erkennen und zu unterscheiden, obwohl sich die Ausprägung verschiedener Merkmale dabei in jedem Gesicht stark unterscheiden kann. Um eine solche Aufgabe maschinell lösen zu können, wird die Verwendung einer künstlichen Intelligenz notwendig. 
+\paragraph{}
+Ein Vielversprechender Ansatz zur Entwicklung einer künstlichen Intelligenz ist das Deep Learning. Dabei werden neue, komplexe Probleme gelöst indem sie aus bekannten, einfachen Problemen zusammengesetzt werden. Hierfür werden neuronale Netze verwendet. Diese sind vom Aufbau und der Struktur der Verschaltung des menschlichen Gehirn nachempfunden. Es gibt Knotenpunkte (= Neuronen), die mit anderen Knotenpunkten verbunden sind, und so Informationen weitergeben. Beim Deep Learning sind diese Knoten in Schichten angeordnet. Die erste Schicht ist sichtbar, und umfasst die rohen Eingangsdaten. Diese werden abstrahiert, auf eine nächste versteckte Schicht abgebildet, wieder verarbeitet und an die nächste Schicht weitergegeben. Dies geschieht einige Male, bis die Daten an die letzte Ebene weitergegeben werden. Dort erhält man ein prozentuales Ergebnis, zu welcher Kategorie die Eingangsdaten zugeordnet werden können. Wie genau die versteckten Schichten arbeiten, an welchen Punkten sie sich orientieren, oder worauf die letztendliche Entscheidung basiert, ist von außen nicht ersichtlich. Die internen Parameter müssen nicht von einem Programmierer festgelegt werden, sondern werden vom neuronalen Netz selbst über ein Trainingsverfahren gelernt \cite{Goodfellow-et-al-2016}. 
+\paragraph{}
+Zum Training wird in der Praxis meist Supervised Learning angewendet. Dabei werden neben den Daten, die in eine Kategorie eingeordnet werden sollen, auch der gewünschte Output übergeben. Nun sollen die internen Parameter so angepasst werden, dass sich der Fehler minimiert. Um dieses Minimum zu finden, wird häufig das Gradientenabstiegsverfahren verwendet. Hierfür berechnet der Lernalgorithmus für jeden Parameter einen Gradienten, der angibt, in wie weit sich der fehlerhafte Output verbessert oder verschlechtert, falls der Parameter leicht erhöht wird. Der Parametervektor wird dann in die entgegengesetzte Richtung zum Gradienten angepasst, um so einen minimalen Wert für den Fehler zu erhalten \cite{LeCun2015DeepLearning}. 
+
+%Automatische Emotionserkennung als Überschrift
+\chapter{Automatische Emotionserkennung}
+\label{Automatische Emotionserkennung}
+Mimiken entstehen durch die Kontraktion verschiedener Gesichtsmuskeln, welche zu den Änderungen der jeweiligen Gesichtsmerkmale führen. So kommt es zum Beispiel zum Zusammenkneifen der Augenlider, Heben der Augenbrauen und Lippen oder Hochziehen der Nase. Durch das Auftreten von Grübchen und Fältchen kann sich auch die Textur der Haut verändern. Verschiedene Emotionen führen zu unterschiedlichen charakteristischen Änderungen im Gesicht, wobei manche Emotionen schwieriger zu erkennen sind als andere. Wir beschäftigen uns hier mit den sechs Basis Emotionen: Freude, Trauer, Angst, Ekel, Überraschung und Wut \cite{Fasel2002AutomaticFacialExpressionsAnalysis}. Wichtig um diese Emotionen zu erkennen sind die Lage, Intensität und Dynamik der entscheidenden Merkmale \cite{Fasel2002AutomaticFacialExpressionsAnalysis}. \\
+Um Emotionen automatisch erkennen zu können müssen drei grundlegende Phasen durchlaufen werden. Als erstes muss das Gesicht und dessen Komponenten erkannt werden, dann müssen die Merkmale extrahiert und letztendlich als ein Ausdruck klassifiziert werden \cite{Ko2018FacialEmotionRecognition}.
+
+\section{Gesichtsdetektion}
+Der erste Schritt für eine funktionierende Emotionserkennung ist die richtige Detektion des Gesichts. Im besten Fall enthält ein Emotionserkennungsprogramm einen Gesichtsdetektor, der es erlaubt ein Gesicht in komplexen Szenen mit einem schwierigen Hintergrund zu erkennen. Manche Methoden zur Emotionserkennung brauchen die exakte Position des Gesichts, bei anderen, wie beim Active Appearance Modell reicht die grobe Lokalisierung \cite{Fasel2002AutomaticFacialExpressionsAnalysis}.\\
+Bei der Detektion des Gesichts kann man zwischen Merkmal und Bild basierten Methoden unterscheiden. Ersteres eignet sich gut für Echtzeitsysteme bei denen Farbe und Bewegung beteiligt ist, letzteres ist eine stabile Technik für statische Grauwertbilder \cite{Hjelmas2001FaceDetection}. \\
+Die Entwicklung des merkmalsbasierten Ansatzes kann man weiter in drei Bereiche unterteilen: die Low-Level Analyse, Merkmalsanalyse und der Verwendung aktiver Formmodelle. Die Low-Level Analyse befasst sich zunächst mit der Segmentierung visueller Merkmale unter Verwendung von Pixeleigenschaften wie Graustufen und Farben. Allerdings sind aufgrund der niedrigen Ebene die aus dieser Analyse generierten Merkmale nicht eindeutig. Deshalb macht man als nächstes eine Merkmalsanalyse, bei der visuelle Merkmale, unter Verwendung von Informationen zur Gesichtsgeometrie, zu einem globaleren Konzept des Gesichts und der Gesichtsmerkmale organisiert. Dadurch wird die Mehrdeutigkeit von Merkmalen reduziert und die Position von Gesicht beziehungsweise Gesichtsmerkmalen bestimmt. Der letzte Schritt umfasst die Verwendung aktiver Formmodelle von Schlangen bis hin zu neueren Punktverteilten Modellen (PDM) \cite{Hjelmas2001FaceDetection}.\\
+Beim bildbasierten Verfahren wird eine Fensterabtasttechnik zum Erfassen von Gesichtern angewendet \cite{Hjelmas2001FaceDetection}. Der Fensterabtastalgorithmus ist im Wesentlichen nur eine Suche auf dem Eingabebild nach in allen Maßstäben möglichen Gesichtsorten, wobei es Unterschiede bei der Implementierung dieses Algorithmus für fast alle bildbasierten Systeme gibt. Typischerweise variieren die Größe des Abtastfensters, die Unterabtastrate, die Schrittgröße und die Anzahl der Iterationen in Abhängigkeit von dem vorgeschlagenen Verfahren und der Notwendigkeit eines rechnerisch effizienten Systems \cite{Hjelmas2001FaceDetection}.
+
+\section{Merkmal Extrahierung}
+Hat man das Gesicht einmal detektiert, geht es daran die Merkmale zu extrahieren. Man kann sich hierbei auf das gesamte Gesicht oder nur bestimmte Teilbereiche beziehen \cite{Fasel2002AutomaticFacialExpressionsAnalysis}. Um Gesichtsausdrücke aus einem frontal aufgenommenen Bild zu erkennen, muss eine Reihe von Schlüsselparametern, die die Gesichtsausdrücke am besten beschreiben, aus dem Bild erarbeitet werden. Diese Parameter, auch Merkmalsvektor genannt, werden genutzt, um später zwischen den verschiedenen Emotionen unterscheiden zu können. Der wichtigste Aspekt einer erfolgreichen Merkmalerkennung ist die Menge an Informationen, die aus einem Bild in den Merkmalsvektor extrahiert werden kann \cite{Shishir2008RecognitionofFacialExpression}. Wenn der Merkmalsvektor des einen Gesichts mit dem eines anderen Gesichts übereinstimmt, können die beiden Gesichter mittels Merkmalsklassifikation nicht mehr unterschieden werden. Dieser Zustand heißt Merkmal Überlappung und sollte bei einer idealen Merkmal Extrahierung niemals auftreten \cite{Shishir2008RecognitionofFacialExpression}.
+\\
+Für automatische Emotionserkennungssysteme wurden verschiedene Arten herkömmlicher Ansätze untersucht. Die Gemeinsamkeit dieser Ansätze besteht darin, den Gesichtsbereich zu erfassen und geometrische Merkmale, Erscheinungsmerkmale oder eine Mischung aus beidem aus dem Zielgesicht zu extrahieren  \cite{Ko2018FacialEmotionRecognition}. Für die geometrischen Merkmale wird die Beziehung zwischen Gesichtskomponenten verwendet, um einen Merkmalsvektor für das Training zu konstruieren. Die Erscheinungsmerkmale werden normalerweise aus dem globalen Gesichtsbereich extrahiert oder aus Regionen mit unterschiedlichen Arten von Informationen  \cite{Ko2018FacialEmotionRecognition}.
+
+\subsection{Gabor Wavelets}
+Mehrere Untersuchungen in der Bildverarbeitung haben ergeben, dass die Feature Extraktion für Gesichtserkennung- und Tracking mit Gabor Filtern gute Ergebnisse liefert, weshalb sie auch eine vielversprechende Methode für die Emotionserkennung darstellt \cite{Shishir2008RecognitionofFacialExpression}.
+
+
+\paragraph{}
+Der allgemeine Rahmen zur Musterdarstellung in Bildern basiert hierbei auf topographisch geordneten, räumlich lokalisierten Filtern, die aus einer mehrfach auflösenden und orientierten Sammlung von Gabor Wavelet Funktionen bestehen \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}.
+Eine 2D-Gabor-Funktion ist eine ebene Welle mit dem Wellenfaktor k, die durch eine Gauß'sche Hüllkurvenfunktion mit der relativen Breite $\sigma$ begrenzt wird \cite{Shishir2008RecognitionofFacialExpression}.
+Um Informationen über Gesichtsausdrücke zu extrahieren, wird jedes Bild mit einer mehrfach auflösenden und orientierten Sammlung von Gabor Wavelets $Gk_+$ und $Gk_-$ gefaltet \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}. Das Vorzeichen stellt gerade (+) oder ungerade (-) Phasen dar, während k, der Filterwellenvektor, die räumliche Frequenz und Ausrichtung des Filters bestimmt \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}. Die Antworten der Filter auf das Bild werden zu einem Vektor zusammengefügt, der folgende Komponenten besitzt:
+\paragraph{}
+$R_{\vec{k},\pm}(\vec{r}_0) = \int G_{\vec{k},\pm} (\vec{r}_0, \vec{r}) I (\vec{r})d\vec{r}$\,,\, mit \\ 
+
+$G_{\vec{k},+}(\vec{r}) = \frac{k^2}{\sigma^2} e^{-k^2||\vec{r}-\vec{r}_0||2/2\sigma^2}cos(\vec{k}\cdot(\vec{r}-\vec{r}_0))-e^{-\sigma^2/2}$\,,\, und \\ 
+
+$G_{\vec{k},-}(\vec{r}) = \frac{k^2}{\sigma^2} e^{-k^2||\vec{r}-\vec{r}_0||2/2\sigma^2}sin(\vec{k}\cdot(\vec{r}-\vec{r}_0))$ \\
+\cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}
+\paragraph{}
+Um das System gegenüber der absoluten Beleuchtungsstärke unempfindlich zu machen, wird das Integral des Cosinus Gaborfilters vom Filter subtrahiert. Beim Sinusfilter ist dies nicht notwendig, da dieser nicht von der absoluten Beleuchtungsstärke abhängt \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}. \\
+Es werden drei räumliche Frequenzen mit folgenden Wellennummern benötigt: k = {$\piup$/2, $\piup$/4, $\piup$/8} \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}. In allen Kalkulationen wird die Bandbreite auf $\sigma$ = $\piup$ gesetzt \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}. Es werden sechs Wellenvektor Orientierungen genutzt, mit Winkeln von 0 bis $\piup$, die im gleichmäßigen Abstand von $\piup$/6 angeordnet sind \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}.
+\\
+Die Komponenten des Gabor Vektors $R_k$ werden definiert als die Amplitude der kombinierten geraden und ungeraden Filterantworten $R_{\vec{k}}=\sqrt{R^{2}_{\vec{k},+}+R^{2}_{\vec{k},-}}$ \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}. Im Gegensatz zu linearen Filterantworten reagiert hier die Antwortamplitude weniger empfindlich auf Positionsänderungen \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}.
+\\
+Um den Ähnlichkeitsraum von Gabor kodierten Gesichtsbildern zu untersuchen, können Filterantworten mit der gleichen räumlichen Frequenz und Orientierung in übereinstimmenden Punkten zweier Gesichtsbilder verglichen werden \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}. Das normalisierte Skalarprodukt wird verwendet, um die Ähnlichkeit zweier Gabor Antwortvektoren zu quantifizieren \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}. Die Ähnlichkeit wird dabei als Durchschnitt der Gaborvektorähnlichkeit über alle korrespondierenden Gesichtspunkte berechnet. Da Gaborvektoren bei Nachbar Pixel stark korreliert und redundant sind, reicht es aus, den Durchschnitt auf einem relativ spärlichen Gitter, welches das Gesicht bedeckt,  zu berechnen \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}.
+\\
+Das hinzufügen mehrerer Gitterpunkte könnte die Leistung des geometrischen Maßes erhöhen, was allerdings mit einem stark erhöhten Rechenaufwand verbunden wäre. Die Lokalisierung der Gitterpunkte ist der teuerste Teil eines voll automatischen Systems \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}. Eine Verbesserung, allerdings nur eine geringfügige, könnte die Kombination von Gabor und Geometrie Systemen bieten\cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}.
+
+\subsection{Active Appearance Modell}
+Active Appearance Modelle (AAM) haben sich als eine gute Methode bewährt, um vordefinierte lineare Formmodelle zu einem Quellbild, welches das zu untersuchende Objekt enthält, auszurichten \cite{Lucey2010CK+}. Das Prinzip der AAMs besteht darin, sich ihren Form- und Erscheinungsbildkomponenten durch eine Gradientenabstammungssuche anzupassen \cite{Lucey2010CK+}. \\
+Die Form s eines AAMs wird durch ein 2D trianguliertes Netz beschrieben, wobei insbesondere die Koordinaten der n Gitter Eckpunkte die Form $s = [x_1, y_1, x_2, y_2, \ldots, x_n, y_n]$ definieren \cite{Lucey2010CK+}. Diese Eckpunkte korrespondieren mit einem Quellbild, von dem aus die Form ausgerichtet wurde \cite{Lucey2010CK+}. Da AAMs lineare Form Variation erlaubt, kann die Form s als Basisform $s_0$ ausgedrückt werden, plus einer linearen Kombination von m Formvektoren $s_i$: \\
+$s=s_0+\sum_{i=1}^{m} p_i s_i$  \,\,	(1) \cite{Lucey2010CK+} \\
+wobei der Koeffizient $p = (p_1, …, p_m)^T$ die Formparameter bildet. Diese Formparameter können typischerweise in rigide ähnliche Parameter $p_s$ und nicht rigide Objektdeformationsparameter $p_0$ unterteilt werden, sodass sich $p_T = [p^{T}_{s}, p^{T}_{0}]$ ergibt \cite{Lucey2010CK+}. Ähnlichkeitsparameter werden assoziiert mit einer geometrischen Ähnlichkeitstransformation (zum Beispiel Translation, Rotation, Skalierung) \cite{Lucey2010CK+}. Die objektspezifischen Parameter sind die Restparameter, die nicht starre geometrische Variationen darstellen, die der bestimmenden Objektform zugeordnet sind (zum Beispiel öffnen des Mundes, Augen schließen, etc.) \cite{Lucey2010CK+}. Prokrustes Anpassung wird verwendet, um die Grundform $s_0$ abzuschätzen \cite{Lucey2010CK+}.\\
+Wenn das Gesicht des Probanden durch Abschätzen der Form und Erscheinung der AAM Parameter einmal erkannt wurde, kann man die Information nutzen um folgende Eigenschaften abzuleiten:
+\paragraph{SPTS}
+Die normalisierte Form $s_n$ bezieht sich auf die n Eckpunkte für die x- und y-Koordinaten, was in einem rohen 2n-dimensionalen  Merkmalsvektor resultiert \cite{Lucey2010CK+}. Diese Punkte sind die Scheitelpunkte, nachdem alle starren geometrischen Abweichungen (Translation, Rotation und Skalierung) in Bezug auf die Grundform entfernt wurden \cite{Lucey2010CK+}. Die normalisierte Form $s_n$ kann erhalten werden durch synthetisieren einer Form Instanz von s, durch das Nutzen der Gleichung (1), welche die Ähnlichkeitsparameter p ignoriert \cite{Lucey2010CK+}. 
+\paragraph{CAPP}
+Das kanonisch normalisierte Erscheinungsbild $a_0$ bezieht sich auf den Bereich, in dem alle nicht rigiden Formvariationen normalisiert wurden, wobei die Basisform $s_0$ berücksichtigt wird \cite{Lucey2010CK+}. Dies wird erreicht durch Anwenden einer stückweise affinen Neigung auf jede dreieckige Form im Quellbild, sodass es mit der Basisgesichtsform einhergeht \cite{Lucey2010CK+}. Wenn man die starren Formvariationen weglassen würde, würde dies zu einer schlechteren Leistung führen \cite{Lucey2010CK+}.
+
+
+
+\section{Klassifizierung}
+\subsection{Neuronale Netze}
+Ein guter Klassifikator, der für viele Mustererkennungsanwendungen verwendet wird, ist das künstliche neuronale Netzwerk (ANN). Es ist effektiv bei der Modellierung nichtlinearer Abbildungen und hat eine gute Klassifizierungsleistung bei einer relativ geringen Anzahl von Trainingsbeispielen. Fast alle ANNs können in drei Grundtypen eingeteilt werden: Multilayer Perceptron Klassifikator (MLP), wiederkehrende neuronale Netze (RNN) und Netze für radiale Basisfunktionen (RBF) \cite{MoatazElAyadi2011SpeechEmotionRecognition}.
+\paragraph{}
+Sobald die Struktur von ANN vollständig spezifiziert ist, sind MLP relativ einfach zu Implementieren und besitzen einen gut definierten Trainingsalgorithmus, weshalb sie auch bei der Emotionserkennung eingesetzt werden \cite{Lyons1998CodingFacialExpressionsWithGaborWavelets}. ANN-Klassifikatoren weisen jedoch im Allgemeinen viele Entwurfsparameter auf, die normalerweise ad hoc festgelegt werden, wie zum Beispiel die Form der Neuronenaktivierungsfunktion, die Anzahl der verborgenen Schichten und die Anzahl der Neuronen in jeder Schicht \cite{MoatazElAyadi2011SpeechEmotionRecognition}. Die Leistung von ANN hängt stark von diesen Parametern ab.
+
+\subsection{Vector Machines}
+Ein weiterer Klassifikator ist die Support Vector Machine (SVM), welche ein wichtiges Beispiel für die Diskriminanzklassifikatoren darstellt \cite{MoatazElAyadi2011SpeechEmotionRecognition}. In einer Reihe von Mustererkennungsaufgaben, die das Gesicht und die Gesichtsaktionserkennung betreffen, haben sich SVMs als eine nützliche Methode zur Klassifizierung erwiesen \cite{Lucey2010CK+} und übertreffen nachweislich andere bekannte Klassifizierungsmethoden \cite{MoatazElAyadi2011SpeechEmotionRecognition}, da die globale Optimalität des Trainingsalgorithmus und die Existenz hervorragender datenabhängiger Verallgemeinerungsgrenzen große Vorteile bieten. SVM-Klassifikatoren basieren hauptsächlich auf der Verwendung von Kernelfunktionen, um die ursprünglichen Features nichtlinear auf einen hochdimensionalen Raum abzubilden, in dem Daten mithilfe eines linearen Klassifikators gut klassifiziert werden können \cite{MoatazElAyadi2011SpeechEmotionRecognition}. Da es keine systematische Möglichkeit gibt, die Kernelfunktion auszuwählen, ist die Trennbarkeit der transformierten Merkmale nicht garantiert. Dies stellt bei Mustererkennungsanwendungen allerdings kein Problem dar, weil dort bei vielen keine perfekte Trennung der Trennungsdaten angestrebt wird, um eine Überanpassung zu vermeiden \cite{MoatazElAyadi2011SpeechEmotionRecognition}.
+
+\section{Facial Action Coding System}
+Nachdem die verschiedenen Merkmale des Gesichts extrahiert und klassifiziert wurden, können sie mit Hilfe des Facial Action Coding Systems (FACS) nach Ekman und Friesen in visuelle Klassen kodiert werden.
+\paragraph{}
+FACS ist ein umfassendes anatomisch basiertes System zur Erfassung aller visuell erkennbaren Gesichtsbewegungen, welches auf 44 sogenannten Action Units (AUs), sowie verschiedenen Kategorien von Augen und Kopf Positionen beziehungsweise Bewegungen basiert \cite{Ekman1997}. Kombiniert man diese AUs miteinander entsteht eine große Variation verschiedener Gesichtsausdrücke. Die Verbindung der AUs 12 und 13, welche das Hochziehen der Mundwinkel und Füllen der Backen beschreiben, mit den AUs 25 und 27, die das leichte öffnen des Mundes darstellen, und dem AU 10, dem anheben der oberen Lippe, ist nur eine Kombination von vielen, um ein Lachen zu beschreiben. Nach diesem Prinzip lassen sich alle Emotionen aus den einzelnen AUs zusammensetzen. 
+\paragraph{}
+Trotz seiner Einschränkungen, das Fehlen einer zeitlichen und detaillierten räumlichen Information, ist diese Methode die weitverbreitetste für das messen menschlicher Gesichtsbewegungen \cite{Essa1997CodingAnalysis}.
+
+
+
+%\section{Datasets}
+%In einem Experiment von Ming Li wurden eine Methode zur Gesichtserkennung untersucht. Dabei wurden die Ergebnisse der Methode durch die Verwendung von zwei verschiedenen Datensätzen evaluiert. Die Extended Cohn-Kanade (CK+) Datenbank und die FER+ Datenbank. Im Vergleich dieser beiden Datensätze zeigt sich, dass die Ergebnisse des Trainings mit der CK+ Datenbank zu 99\% korrekte Ergebnisse liefert, während FER+ nur zu 84\% richtig liegt. CK+ liegen sowohl gestellte als auch ungestellte Posen zur Verfügung, 593 Sequenzen von 123 verschiedenen Personen.
+
+\chapter{Einsatzgebiete}
+\label{Einsatzgebiete}
+Automatisierte Emotionserkennung kann in vielen Bereichen zum Einsatz kommen. Besonders in der Marktforschung und im Marketing kann sie von großem Nutzen sein. Viele Firmen haben bereits erkannt, dass es eine gute Werbestrategie ist, die Emotionen des Kunden anzusprechen. Lässt sich der Kunde emotional auf eine Marke ein, steigt nicht nur die Wahrscheinlichkeit, dass er das Produkt kauft, sondern auch dass er es weiterempfiehlt und einem Konkurrenzprodukt vorzieht \cite{Consoli2010Marketing}. Um nun diesen Effekt zu überprüfen, wird bereits heute automatisierte Emotionserkennung angewendet. Auch in der Software Entwicklung kann eine solche Technik während Usability-Tests zum Einsatz kommen um festzustellen, ob der Kunde mit der Nutzung zufrieden ist \cite{Kolakowska2014EmotionRecognitionAndApplications}.
+In der Medizin könnte sie Rückschlüsse auf das Befinden eines Patienten geben und, eingebaut in ein Smart Home System, im Ernstfall einen Notdienst kontaktieren. \\Im Bereich der Mensch-Maschinen-Interaktion können mittels Emotionserkennung große Fortschritte erzielt werden. Die menschliche Interaktion ist von Feinheiten geprägt. In der Regel passt man sein eigenes Verhalten der Stimmung seines Gesprächspartners an. So geht man mit einem aggressiven oder verängstigten Menschen anders um als mit jemandem der gut gelaunt ist. Eine Maschine muss diese Emotionen erst erkennen, um dann ihr Verhalten anpassen zu können. Hierfür kann neben dem Gesichtsausdruck auch die Stimme eine große Rolle spielen \cite{Brand2012AutomatischeEmotionserkennung}. 
+
+\paragraph{Konkretes Anwendungsbeispiel}
+Die durch das Fraunhofer Institut für Integrierte Schaltungen entwickelte Bildanalyse Software "{}SHORE"{}  (Sophisticated Highspeed Object Recognition Engine)  ist in der Lage, neben einer Bestimmung des Geschlechts und Abschätzungen des Alters, Emotionen zu erkennen und zu unterscheiden. Theoretisch könnten 100 Emotionen erfasst werden, bei SHORE wurde sich auf die vier am einfachsten zu unterscheidenden Emotionen beschränkt: glücklich, traurig, überrascht und verärgert. Die Software wurde plattformunabhängig entwickelt, sodass sie in vielen Bereichen Anwendung finden kann. Beworben wird die Software für drei Anwendungsbereiche: Werbung und Marktforschung, Fahrassistenz-Systeme und Medizintechnik. Während bei der Marktforschung hier vor allem die Zielgruppenanalyse als Vorteil genannt wird, soll bei Fahrassistenz-Systemen auch die Stimmungslage des Fahrers analysiert werden, um so Unfallrisiken zu reduzieren. In der Medizintechnik soll die Software zum einen zur Schmerzerkennung von Patienten, die sich nicht mehr verständigen können, angewendet werden können. Zum anderen kann sie, eingebettet in ein Ambient-Assistent-Living-System, verwendet werden um älteren und erkrankten Menschen so lang wie möglich die Möglichkeit geben selbstständig aber dennoch sicher zu leben.
+Eine weitere Möglichkeit der Verwendung von SHORE besteht darin, in einer Datenbrille eingebunden beispielsweise autistischen Menschen das Leben zu erleichtern. Erkrankte haben dabei in den meisten Fällen große Probleme, die Gefühlslage ihres Gesprächspartners und den Subtext so mancher Aussagen zu erkennen. Durch die über die Brille erhaltenen Informationen kann so der Alltag stark erleichtert werden\cite{Ruf2011} \cite{SHORE}. 
+
+\chapter{Material und Methoden}
+\section{Neuronale Netze}
+
+\section{Benutzeroberfläche}
+
+\section{Schnittstelle}
+????
+
+\chapter{Ergebnisse}
+
+\chapter{Diskussion}
+
+\chapter{Zusammenfassung}
+
+
+
+
+% Literaturverzeichnis
+\printbibliography
+
+
+% Anhang
+\appendix
+\chapter{Anhang}
+
+
+\end{document}
