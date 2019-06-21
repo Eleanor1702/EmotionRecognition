@@ -33,7 +33,7 @@ namespace EmotionRecognition.Services {
             encoder.QualityLevel = 100;
 
             //relative Path
-            string filepath = "Images\\capture.jpg";
+            string filepath = @"..\..\Images\capture.jpg";
             FileStream fstream = new FileStream(filepath, FileMode.Create);
             encoder.Save(fstream);
             fstream.Close();

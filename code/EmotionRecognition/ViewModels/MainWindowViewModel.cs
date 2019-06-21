@@ -127,7 +127,7 @@ namespace EmotionRecognition.ViewModels {
 		public void recognizeUser(){
 			while(true){
 
-				updateUserMsg("Gib uns 5 sekunden um dich zu erkenenn");
+				updateUserMsg("Gib uns 5 sekunden um dich zu erkennen");
 				System.Threading.Thread.Sleep(5000);
 
                 //send video instance to NNUnit to check if user exist

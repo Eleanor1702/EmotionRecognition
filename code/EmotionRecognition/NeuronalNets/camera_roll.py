@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import cv2
 import numpy as np
-from os import listdir
+import os
 import predict
 import sys
 import time
@@ -10,7 +10,10 @@ import time
 #definition of a function which gets pictures from a folder
 #z = input("Input vor CascadeClassifier?: ")
 # load OpenCV pre-trained cascade classifier for face detection
-face_cascade = cv2.CascadeClassifier('model/haarcascade_frontalface_default.xml')
+
+# path where camera_roll.py is located, important to allow flexible project calling
+script_path = os.path.dirname(os.path.realpath(__file__))
+face_cascade = cv2.CascadeClassifier(script_path + '/model/haarcascade_frontalface_default.xml')
 #y = input("Input am Anfamg?: ")
 # variables
 #face_locations = []
@@ -18,11 +21,10 @@ face_cascade = cv2.CascadeClassifier('model/haarcascade_frontalface_default.xml'
 #process_every_n_frames = 20
 #path = r'C:/Users/lazyj/Desktop/Studium/Laborpraktikum/emotionrecognition-NN_1.1/emotionrecognition-NN/TestImages'
 path = sys.argv[1]
-imageList = listdir(path)
+imageList = os.listdir(path)
 #print("Pfad wurde gelesen " + path)
 image_count = 0
 #picsList = loadImage(path)
-
 
 # colors
 white = (255, 255, 255)
@@ -31,6 +33,10 @@ class_labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral
 emotion_colors = [(54, 67, 244), (136, 150, 0), (76, 39, 156), (80, 175, 76), (0, 152, 255), (59, 235, 255), (243, 150, 33)]
 
 for image in imageList:
+	# only analyse JPG files, excluding .gitkeep
+	if image.endswith(".jpg") == False:
+		continue
+
 	frame = cv2.imread(path + image, cv2.IMREAD_UNCHANGED)
 	frame_resized = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 	frame_resized_gray = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY)
@@ -38,7 +44,7 @@ for image in imageList:
 	# Find all the faces in the current frame of video
 	faces = face_cascade.detectMultiScale(frame_resized_gray, 1.1, 5)
 	print('Faces found: ', len(faces))
-	if len(faces) == 1: 
+	if len(faces) == 1:
 		faces_preds = []
 		for (x, y, w, h) in faces:
 			face = frame_resized_gray[y:y+h, x:x+w]
@@ -56,5 +62,3 @@ for image in imageList:
 
 
 #x = input("Input:")
-
-

@@ -30,6 +30,7 @@ namespace EmotionRecognition.Models
         {
             try
             {
+                //CS kann die Ausgabe von Python nicht lesen!!
                 EmotionTableInterpreter interpreter = new EmotionTableInterpreter(neuralNetProcess, ref returnObject);
             }
             catch (Exception ex)

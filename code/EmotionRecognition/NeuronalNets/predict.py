@@ -2,11 +2,15 @@ import tensorflow as tf
 from tensorflow.contrib import predictor
 import numpy as np
 import model
+import os
 
 class_labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 
+# path where predict.py is located, important to allow flexible project calling
+script_path = os.path.dirname(os.path.realpath(__file__))
+
 # fer2013_predictor = predictor.from_saved_model(export_dir='saved_models/fer2013/1520859040')
-ferplus_predictor = predictor.from_saved_model(export_dir='saved_models/ferplus/1523392049')
+ferplus_predictor = predictor.from_saved_model(export_dir=script_path + '/saved_models/ferplus/1523392049')
 # ckplus_predictor = predictor.from_saved_model(export_dir='saved_models/ckplus/1520882345')
 
 def predictEmotion(img_128, img_48):
