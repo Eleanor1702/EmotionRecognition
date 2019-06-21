@@ -106,6 +106,129 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="NeuronalNets\.gitignore" />
+    <None Include="NeuronalNets\EmotionRecognition_NNProcessComb.exe" />
+    <None Include="NeuronalNets\README.md" />
+    <None Include="NeuronalNets\camera_roll.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\model.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\predict.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\requirements.txt" />
+    <None Include="NeuronalNets\train_ckplus.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\train_fer.py" />
+    <None Include="NeuronalNets\train_ferplus.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\doc\doc.tex" />
+    <None Include="NeuronalNets\doc\paper.bib" />
+    <None Include="NeuronalNets\doc\paper.pdf" />
+    <None Include="NeuronalNets\doc\paper.tex" />
+    <None Include="NeuronalNets\doc\figures\ckplus_examples.png" />
+    <None Include="NeuronalNets\doc\figures\class_dist.png" />
+    <None Include="NeuronalNets\doc\figures\confusion.png" />
+    <None Include="NeuronalNets\doc\figures\errors.png" />
+    <None Include="NeuronalNets\doc\figures\fer_examples.png" />
+    <None Include="NeuronalNets\doc\figures\ferplus_distribution.png" />
+    <None Include="NeuronalNets\doc\figures\max_pooling.png" />
+    <None Include="NeuronalNets\model\haarcascade_frontalface_default.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\models\.gitkeep" />
+    <None Include="NeuronalNets\models\ckplus\.gitkeep" />
+    <None Include="NeuronalNets\models\ckplus\saved_model.pbtxt" />
+    <None Include="NeuronalNets\models\ckplus\variables\.gitkeep" />
+    <None Include="NeuronalNets\models\ckplus\variables\variables.index" />
+    <None Include="NeuronalNets\notebooks\data-augumentation.ipynb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\notebooks\fer-conv.ipynb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\notebooks\fer-linear.ipynb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\notebooks\ferplus.ipynb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\notebooks\plot.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\notebooks\colab\ferplus-argmax.ipynb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\notebooks\colab\ferplus.ipynb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ckplus\1520882345\saved_model.pbtxt" />
+    <None Include="NeuronalNets\saved_models\ckplus\1520882345\variables\variables.data-00000-of-00001" />
+    <None Include="NeuronalNets\saved_models\ckplus\1520882345\variables\variables.index" />
+    <None Include="NeuronalNets\saved_models\ckplus\1521466160\saved_model.pbtxt" />
+    <None Include="NeuronalNets\saved_models\ckplus\1521466160\variables\variables.data-00000-of-00001" />
+    <None Include="NeuronalNets\saved_models\ckplus\1521466160\variables\variables.index" />
+    <None Include="NeuronalNets\saved_models\fer2013\1520859040\saved_model.pbtxt" />
+    <None Include="NeuronalNets\saved_models\fer2013\1520859040\variables\variables.data-00000-of-00001" />
+    <None Include="NeuronalNets\saved_models\fer2013\1520859040\variables\variables.index" />
+    <None Include="NeuronalNets\saved_models\fer2013\1521556168\saved_model.pbtxt" />
+    <None Include="NeuronalNets\saved_models\fer2013\1521556168\variables\variables.data-00000-of-00001" />
+    <None Include="NeuronalNets\saved_models\fer2013\1521556168\variables\variables.index" />
+    <None Include="NeuronalNets\saved_models\ferplus\1521301543\saved_model.pbtxt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1521301543\variables\variables.data-00000-of-00001">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1521301543\variables\variables.index">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1521305439\saved_model.pbtxt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1521305439\variables\variables.data-00000-of-00001">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1521305439\variables\variables.index">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1521478242\saved_model.pbtxt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1521478242\variables\variables.data-00000-of-00001">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1521478242\variables\variables.index">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1521543204\saved_model.pbtxt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1521543204\variables\variables.data-00000-of-00001">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1521543204\variables\variables.index">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1523392049\saved_model.pbtxt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1523392049\variables\variables.data-00000-of-00001">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\saved_models\ferplus\1523392049\variables\variables.index">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\util\build_ferplus.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NeuronalNets\util\ckplus_to_csv.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

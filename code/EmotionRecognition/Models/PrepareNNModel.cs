@@ -19,7 +19,7 @@ namespace EmotionRecognition.Models
             neuralNetProcess.StartInfo.FileName = "Python.exe";
             neuralNetProcess.StartInfo.Arguments = @"../../NeuronalNets/camera_roll.py" + " " + @"../../Images/";
             neuralNetProcess.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
-            neuralNetProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            neuralNetProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             neuralNetProcess.StartInfo.UseShellExecute = false;
             neuralNetProcess.StartInfo.RedirectStandardOutput = true;
             //Console.WriteLine(startInfo);
