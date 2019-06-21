@@ -1,0 +1,18 @@
+# ignore these Files:
+
+__pycache__
+logs
+data
+doc/*
+fer2013.csv
+.ipynb_checkpoints/
+.vscode/
+
+# Don't ignore these Files:
+
+!doc/paper.tex
+!doc/paper.pdf
+!doc/paper.bib
+!doc/doc.tex
+!doc/fer2013.bib
+!doc/figures/
