@@ -64,7 +64,11 @@ namespace EmotionRecognition.Models
         {
             neuralNetProcess.Start();
             netOutput = neuralNetProcess.StandardOutput.ReadToEnd();
-			netOutput = netOutput.Replace(@"\n", "").Replace(@"\r", "").Replace(@"\t", "").Replace(@"\v", "").Replace("@\f", "");
+			netOutput = netOutput.Replace(@"\n", "");
+			netOutput = netOutput.Replace(@"\r", "");
+			netOutput = netOutput.Replace(@"\t", "");
+			netOutput = netOutput.Replace(@"\v", "");
+			netOutput = netOutput.Replace("@\f", "");
             a_matchCollection = Regex.Matches(netOutput, patternFaceFoundCount);
             if (a_matchCollection.Count > 0)
             {
