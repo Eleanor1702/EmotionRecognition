@@ -1,0 +1,91 @@
+
+\documentclass[10pt,a4paper]{report}
+\usepackage{amsmath}
+\usepackage{booktabs} % For pretty tables
+\usepackage{caption} % For caption spacing
+\usepackage{subcaption} % For sub-figures
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage[all]{nowidow}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{er,positioning,bayesnet}
+\usepackage{multicol}
+\usepackage{algpseudocode,algorithm,algorithmicx}
+%\usepackage{minted}
+\usepackage{hyperref}
+\usepackage[inline]{enumitem} % Horizontal lists
+\usepackage{}
+
+\begin{document}
+\section{Material und Methoden}
+Die Entwicklung des Emotionserkennungsspiel ist in drei Bereichen geteilt:
+die graphische Benutzeroberfläche, die dahinter steckende Logik bzw. das
+Neuronale Netz, das für die Emotionserkennung zuständig ist und die Schnittstelle
+zwischen beiden. Im Folgenden werden die Methoden der einzelnen Bestandteile
+des Programms beschrieben. 
+
+
+
+\subsection{Neuronale Netze}
+\label{subsec:statistical-summaries}
+Auf Grund seiner höheren Geschwindigkeit und großen Anzahl von verschiedenen
+bereitgestellten Bibliotheken gilt Python als eine der besten Programmiersprachen
+für die Entwicklung einer Künstlichen Intelligenz-basierten Software.
+\newline
+Python wird in Kombination mit dem Deep Learning Framework  \textit{TensorFlow} angewendet, um das Netz "lehren" und seine Ergebnisse interpretieren zu können.
+Bei diesem Projekt wurden die Python Version 3.6 und die TensorFlow Version
+1.7 verwendet.
+ \newline
+Als Vorlage diente ein Beispielskript \cite{LeweOhlsenGit}, das ein Videosignal über die Webkamera
+empfängt, das Video dann in einzelne Bilder (Frames) zerteilt und jedes Bild
+nach Emotionen untersucht. Das Skript wurde während des Laborpraktikums
+umgebaut und an die Benutzeroberfläche und die Schnittstellen angepasst.\newline
+Um die einzelne Bilder zu bewerten reicht das neuronale Netz allein nicht aus. Man
+benötigt auch ein Framework, das Bildverarbeitungs-Algorithmen zur Verfügung
+stellt. Ein solches Framework ist OpenCV, da es sich gut mit Python kompilieren lässt.
+Das ausgewählte Framework ist OpenCV in der Version ist 3.4.
+ \newline
+Zur Verfügung standen drei bereits trainierten neuronalen Netze bzw. Modelle: \newline
+\begin{itemize}
+\item[-]  FER2013 \cite{IasGoodefellow}
+\item[-] CK+
+\item[-] FERPlus \newline
+\end{itemize}
+ 
+
+Eines dieser Modelle  bindet man in das Skript ein, um auf der Basis des ausgewählten Modells die Emotionserkennung zu ermöglichen. Bei dem im Emotionserkennungsspiel verwendeten Datensatz 
+handelt es sich um den FERPlus-Datensatz. 
+ \cite{LeweOhlsen} Der Datensatz wurde
+von einer Forschungsgruppe bei Microsoft entwickelt. Er unterscheidet sich
+von seinem Vorgänger FER2013 im genaueren Crowdsourcing für den Tagging-
+Vorgang.
+ \cite{RamakrishnanPandeyKarmakarSaha} 
+Dieser Datensatz verfügt über sieben Emotionsklassen: Wut, Ekel,
+Angst, Freude, Trauer, Überraschung und neutrale Emotion.\newline
+Im Gegensatz zum Beispielsskript, empfängt das für das Spiel entwickelte Skript 
+keinen Stream von der Webkamera, sondern bekommt von der Benutzeroberfläche
+ein Ordnerverzeichnis übergeben. In dem Ordner befinden sich Bilder, die bereits
+aus dem Videostream ausgeschnitten worden sind. 
+%Die Bilder werden nach der Erkennung gelöscht. Dieser Satz ist in der aktuellen Programmlogik nicht mehr gültig.
+In einem Ordner sollen Bilder mit der gleichen Emotion abgespeichert werden. Die Bilder nacheinander werde
+eingelesen.
+ \newpage 
+Zunächst wird überprüft, ob auf dem Bild ein Gesicht gefunden bzw.
+erkannt werden kann. Laut den Spielregeln darf es nur einen Spieler geben,
+daher liefert das Skript eine bestimmte Meldung zurück, sollte die Neuronale Netz mehr als ein Gesicht oder kein
+Gesicht erkennen. Falls aber
+tatsächlich ein Gesicht erkannt wird, geht das Spiel weiter. Das Gesicht auf
+jedem Bild wird nach Emotionen Untersucht. Das Ergebnis wird auf der Kommandozeile
+in Form eines Feldes ausgegeben, in dem auf der ersten Position das
+Index von der Emotion steht, die am wahrscheinlichsten erkannt wurde.
+
+
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{Doku}
+%
+\end{document}
