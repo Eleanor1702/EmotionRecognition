@@ -1,5 +1,4 @@
 ﻿using EmotionRecognition.Services;
-using System.Windows.Media.Imaging;
 
 namespace EmotionRecognition.Models {
 
@@ -19,9 +18,9 @@ namespace EmotionRecognition.Models {
         }
 
         //for the sake of the example the parameters types are string
-        public bool CompareEmotion(BitmapSource img , string randomEmotion) {
+        public bool CompareEmotion(string randomEmotion) {
             //NN analyse throws an object with EmotionName, percentage and user Recognition.
-            ReturnObject result = nnUnit.analyse(img);
+            ReturnObject result = nnUnit.analyse();
 
             //check if NNUnit threw an Exception (During Game)
             switch (result.FaceDetected) {
@@ -47,8 +46,8 @@ namespace EmotionRecognition.Models {
         }
 
 		//check if user Exist to Start Game
-		public ReturnObject.Type TryToRecognizeUser(BitmapSource bitPic ) {
-            return nnUnit.CheckUserExist(bitPic);
+		public ReturnObject.Type TryToRecognizeUser() {
+            return nnUnit.CheckUserExist();
 		}
 
         //reset Game

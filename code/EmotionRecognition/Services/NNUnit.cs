@@ -1,6 +1,4 @@
 ﻿using EmotionRecognition.Models;
-using System.IO;
-using System.Windows.Media.Imaging;
 
 namespace EmotionRecognition.Services {
 
@@ -8,10 +6,7 @@ namespace EmotionRecognition.Services {
 
     public class NNUnit {
 
-		public ReturnObject analyse(BitmapSource img) {
-
-            //save bitmap pic in folder
-            saveImage(img);
+		public ReturnObject analyse() {
 
             //Call: camera_roll.py Images/
             PrepareModel prepareModel = new PrepareModel();
@@ -21,22 +16,9 @@ namespace EmotionRecognition.Services {
         }
 
         //called to handle User Exceptions
-		public ReturnObject.Type CheckUserExist(BitmapSource bitPic) {
+		public ReturnObject.Type CheckUserExist() {
 
-            return analyse(bitPic).FaceDetected;
+            return analyse().FaceDetected;
 		}
-
-        //sava image in Folder to be used
-        private void saveImage(BitmapSource bitPic) {
-            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bitPic));
-            encoder.QualityLevel = 100;
-            
-            //relative Path
-            string filepath = @"..\..\Images\capture.jpg";
-            FileStream fstream = new FileStream(filepath, FileMode.Create);
-            encoder.Save(fstream);
-            fstream.Close();
-        }
     }
 }

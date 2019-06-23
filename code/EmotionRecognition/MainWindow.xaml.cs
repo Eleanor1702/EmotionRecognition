@@ -2,14 +2,11 @@
 using System.Windows;
 using WebEye.Controls.Wpf;
 using System.Collections.Generic;
-using System.Threading;
-using System;
 
-namespace EmotionRecognition
-{
+namespace EmotionRecognition {
 
-	/// <summary> NO PROCESS RELATED CODE ALLOWED </summary>
-	public partial class MainWindow : Window {
+    /// <summary> NO PROCESS RELATED CODE ALLOWED </summary>
+    public partial class MainWindow : Window {
 
         //allows MainWindow to be edited from other Classes, in our Case (MainProcessor)
         public static MainWindow main;

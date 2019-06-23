@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using EmotionRecognition.Models;
@@ -50,6 +51,19 @@ namespace EmotionRecognition.ViewModels {
             this.game.resetGame();
 		}
 
+        //sava image in Folder to be used
+        private void saveImage(BitmapSource bitPic) {
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitPic));
+            encoder.QualityLevel = 100;
+
+            //relative Path
+            string filepath = @"..\..\Images\capture.jpg";
+            FileStream fstream = new FileStream(filepath, FileMode.Create);
+            encoder.Save(fstream);
+            fstream.Close();
+        }
+
         //Main function of Game Logic
         public void run() {
 
@@ -71,22 +85,22 @@ namespace EmotionRecognition.ViewModels {
 					System.Threading.Thread.Sleep(1000);
 				}
 
-				//capture Image
+				//capture Image + save
 				BitmapSource img = null;
 				Application.Current.Dispatcher.Invoke(new Action(() => {
 					img = BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage());
+                    saveImage(img);
                 }));
 
-				//Wait message while processing
-				updateUserMsg("Bild wird analysiert...");
+                System.Threading.Thread.Sleep(100);
+
+                //Wait message while processing
+                updateUserMsg("Bild wird analysiert...");
 
 				//this try and catch serves handling the exception of a missing user during Gameplay
 				try {
                     //Get random generated Emoji from Emotiongenerator in Services. Usually captured Image should be passed here as well
-                    bool result = false;
-                    Application.Current.Dispatcher.Invoke(new Action(() => {
-                        result = game.CompareEmotion(img, emotion);
-                    }));
+                    bool result = game.CompareEmotion(emotion);
 
                     //Rate the results and update UI
                     if (result) {
@@ -129,15 +143,21 @@ namespace EmotionRecognition.ViewModels {
 		public void recognizeUser(){
 			while(true){
 
-				updateUserMsg("Gib uns 5 sekunden um dich zu erkennen");
-				System.Threading.Thread.Sleep(5000);
+				updateUserMsg("Gib uns paar sekunden um dich zu erkennen");
+				System.Threading.Thread.Sleep(3000);
 
                 //send video instance to NNUnit to check if user exist
                 ReturnObject.Type recognizedUserType = ReturnObject.Type.Exception;
 
-				Application.Current.Dispatcher.Invoke(new Action(() => {
-					recognizedUserType = game.TryToRecognizeUser(BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage()));
+                Application.Current.Dispatcher.Invoke(new Action(() => {
+                    BitmapSource Userimg = BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage());
+                    saveImage(Userimg);
 				}));
+
+                System.Threading.Thread.Sleep(100);
+                updateUserMsg("Bild wird analysiert....");
+
+                recognizedUserType = game.TryToRecognizeUser();
 
                 switch (recognizedUserType) {
                     case ReturnObject.Type.FaceDetected:
@@ -149,6 +169,10 @@ namespace EmotionRecognition.ViewModels {
                         break;
                     case ReturnObject.Type.Exception:
                         updateUserMsg("Ein Fehler ist aufgetreten! Bitte wenden Sie sich an einen Mitarbeiter!");
+                        break;
+                    case ReturnObject.Type.NoFaceDetected:
+                        updateUserMsg("Kein Gesicht ist erkannt. Lass uns nochmal probieren!");
+                        System.Threading.Thread.Sleep(3000);
                         break;
                 }
 			}
