@@ -1,20 +1,18 @@
-- IDE: 
-    Visual Studio 2017 Community Edition (alle)
-- Framework: 
-    .Net 4.7.2 (GUI und Video2Picture-Service)
+- IDE:
+    Visual Studio 2017 Community Edition
+- Framework:
+    ~ .Net 4.6.1
+    ~ WPF
 - Testframework:
-    NUnit (alle)
-- GUI-Framework: 
-    WPF (mit .Net abgleichen!)
-- Dokumentation: 
-    Doxygen (alle, fertige Software)
-- Sprache GUI, Video2Picture: 
-    C#
-- Sprache Neuronales Netzwerk: 
-    Python/C/C++ (Entscheidung!)
-- Genutzter Computer: 
+    NNUnit
+- Dokumentation:
+    Doxygen
+- Programmiersprachen:
+    ~ C# (UI)
+    ~ Python (NN Unit)
+- Zielrechner technische Details:
     - Intel Pentium Silver J5005 (4 Cores @ 1.50 - 2.80 GHz)
     - 8 GB RAM
-    - GPU: In Prozessor verbaut -> nicht darauf verlassen!
+    - GPU: Unbekannt
 
  !Alle hier nicht aufgelisteten Technologien müssen mit den Aufgelisteten kompatibel sein!
