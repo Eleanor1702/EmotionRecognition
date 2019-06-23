@@ -31,7 +31,7 @@ namespace EmotionRecognition.Services {
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitPic));
             encoder.QualityLevel = 100;
-
+            
             //relative Path
             string filepath = @"..\..\Images\capture.jpg";
             FileStream fstream = new FileStream(filepath, FileMode.Create);

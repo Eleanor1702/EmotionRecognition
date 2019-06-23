@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using EmotionRecognition.Models;
@@ -7,8 +6,8 @@ using EmotionRecognition.Services;
 
 namespace EmotionRecognition.ViewModels {
 
-	//This is our Controller/ViewModel
-	public class MainWindowViewModel {
+    //This is our Controller/ViewModel
+    public class MainWindowViewModel {
 
         private GameClass game;
 
@@ -76,18 +75,21 @@ namespace EmotionRecognition.ViewModels {
 				BitmapSource img = null;
 				Application.Current.Dispatcher.Invoke(new Action(() => {
 					img = BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage());
-				}));
+                }));
 
 				//Wait message while processing
 				updateUserMsg("Bild wird analysiert...");
 
 				//this try and catch serves handling the exception of a missing user during Gameplay
 				try {
-					//Get random generated Emoji from Emotiongenerator in Services. Usually captured Image should be passed here as well
-					bool result = game.CompareEmotion(img, emotion);
+                    //Get random generated Emoji from Emotiongenerator in Services. Usually captured Image should be passed here as well
+                    bool result = false;
+                    Application.Current.Dispatcher.Invoke(new Action(() => {
+                        result = game.CompareEmotion(img, emotion);
+                    }));
 
-					//Rate the results and update UI
-					if (result) {
+                    //Rate the results and update UI
+                    if (result) {
 						updateUserMsg("Jawohl! Gut gemacht!");
 						refreshPoints();
 						System.Threading.Thread.Sleep(2000);
