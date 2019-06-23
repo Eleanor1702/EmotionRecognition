@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmotionRecognition_NNProcessComb", "EmotionRecognition_NNProcessComb\EmotionRecognition_NNProcessComb.csproj", "{92CDDF9A-9D01-4E00-9FA9-97E6C408175B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92CDDF9A-9D01-4E00-9FA9-97E6C408175B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92CDDF9A-9D01-4E00-9FA9-97E6C408175B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92CDDF9A-9D01-4E00-9FA9-97E6C408175B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92CDDF9A-9D01-4E00-9FA9-97E6C408175B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C36A5757-C247-41B3-B70E-AC833425DD31}
+	EndGlobalSection
+EndGlobal

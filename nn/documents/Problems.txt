@@ -1,0 +1,3 @@
+Berechtigung beim Aufruf von Webcam.py -> darf das Script auf die Webcam zugreifen?
+Verarbeitung von Fehlern: Wer macht die Fehler-Routine?
+/images/ModelTest/ModelTryError.png
