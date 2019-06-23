@@ -11,10 +11,8 @@ namespace EmotionRecognition.Models
         private ProcessStartInfo startInfo;
         private ReturnObject returnObject = new ReturnObject("Default", 999, ReturnObject.Type.NoFaceDetected);
 
-        public PrepareModel(/*string pathToScript, string pathToPicture*/)
+        public PrepareModel()
         {
-            //Console.WriteLine("PreareModel called");
-            //Console.WriteLine("\twith:\n\t" + pathToScript + "\n\t" + pathToPicture + "\n\t" + Directory.GetCurrentDirectory());
             neuralNetProcess = new Process();
             neuralNetProcess.StartInfo.FileName = "Python.exe";
             neuralNetProcess.StartInfo.Arguments = @"../../NeuronalNets/camera_roll.py" + " " + @"../../Images/";
@@ -23,7 +21,6 @@ namespace EmotionRecognition.Models
             neuralNetProcess.StartInfo.CreateNoWindow = true;
             neuralNetProcess.StartInfo.UseShellExecute = false;
             neuralNetProcess.StartInfo.RedirectStandardOutput = true;
-            //Console.WriteLine(startInfo);
             StartEmoRecTableInterpreter();
 
         }
@@ -31,7 +28,6 @@ namespace EmotionRecognition.Models
         {
             try
             {
-                //CS kann die Ausgabe von Python nicht lesen!!
                 EmotionTableInterpreter interpreter = new EmotionTableInterpreter(neuralNetProcess, ref returnObject);
             }
             catch (Exception ex)
