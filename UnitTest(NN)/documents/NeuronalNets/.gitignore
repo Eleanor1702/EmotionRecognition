@@ -1,0 +1,15 @@
+__pycache__
+logs
+data
+doc/*
+!doc/paper.tex
+!doc/paper.pdf
+!doc/paper.bib
+!doc/doc.tex
+!doc/fer2013.bib
+!doc/figures/
+
+fer2013.csv
+
+.ipynb_checkpoints/
+.vscode/

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" />
+  <PropertyGroup>
+    <ProjectGuid>{81196F0D-EA64-47A0-90DB-9FC016BA3983}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <RootNamespace>NunitTests</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.RegularExpressions">
+      <HintPath>..\packages\System.Text.RegularExpressions.4.3.1\lib\net463\System.Text.RegularExpressions.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PrepareModelUnitTest.cs" />
+    <Compile Include="ETIUnitTest.cs" />
+    <Compile Include="ReturnObjectTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestNNClasses\TestNNClasses.csproj">
+      <Project>{F45E771D-B005-4D21-AF0A-F086A004FF42}</Project>
+      <Name>TestNNClasses</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
