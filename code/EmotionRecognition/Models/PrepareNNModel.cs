@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 
@@ -20,7 +20,7 @@ namespace EmotionRecognition.Models
             neuralNetProcess.StartInfo.Arguments = @"../../NeuronalNets/camera_roll.py" + " " + @"../../Images/";
             neuralNetProcess.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
             neuralNetProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            neuralNetProcess.StartInfo.CreateNoWindow = true;
+            neuralNetProcess.StartInfo.ProcessWindowStyle = ProcessWindowStyle.Hidden;
             neuralNetProcess.StartInfo.UseShellExecute = false;
             neuralNetProcess.StartInfo.RedirectStandardOutput = true;
             //Console.WriteLine(startInfo);
