@@ -1,1 +1,4 @@
-Faces found:  1\r\n(array([6, 3, 2, 4, 1, 0, 5], dtype=int64), array([4.4872350e-04, 6.2474184e-04, 1.5910526e-03, 1.5354901e-02,\r\n       1.2152571e-03, 4.2925944e-04, 9.8033601e-01], dtype=float32))\r\n[ INFO:0] Initialize OpenCL runtime...\r\n
+Faces found:  1
+(array([6, 4, 3, 1, 0, 5, 2], dtype=int64), array([0.00483765, 0.00606977, 0.00258603, 0.01008898, 0.15759432,
+       0.00312762, 0.81569564], dtype=float32))
+[ INFO:0] Initialize OpenCL runtime...
