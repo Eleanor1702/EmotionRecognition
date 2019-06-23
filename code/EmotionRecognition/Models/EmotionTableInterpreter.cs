@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Environment;
 
 namespace EmotionRecognition.Models
 {
@@ -64,6 +65,10 @@ namespace EmotionRecognition.Models
         {
             neuralNetProcess.Start();
             netOutput = neuralNetProcess.StandardOutput.ReadToEnd();
+            //1. Versuch
+            netOutput = netOutput.Replace(Environment.NewLine, "");
+            //2. Versuch
+            //netOutput = Regex.Replace(netOutput, @"\r\n?|\n", "");
 			netOutput = netOutput.Replace(@"\n", "");
 			netOutput = netOutput.Replace(@"\r", "");
 			netOutput = netOutput.Replace(@"\t", "");
