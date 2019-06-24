@@ -9,70 +9,8 @@
 \usepackage{listings}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \title{LPR-P2 Doku 2019}
+
 \begin{document}
-%David
-\chapter{LPR – 2 Emotion Recognition}
-\section{Emotionserkennung – Zusammenspiel der verschiedenen Klassen}
-Die Erkennung einer Emotion anhand der zur Verfügung gestellten Bilder erfolgt durch ein Zusammenspiel der Klassen \textit{PrepareModel} und \textit{EmotionTableInterpreter}. Das Starten des Python-Prozesses zur Ermittlung der erkennbaren Emotionen liegt im Aufgabenbereich der \textit{PrepareModel}-Klasse. Des Weiteren startet \textit{PrepareModel} die Auswertung der vom Python-Prozess zurückgegeben Werte mittels der \textit{EmotionTableInterpreter}-Klasse. Ziel ist es, die am deutlichsten erkannte Emotion heraus zu filtern. Der Interpreter befüllt danach das Attribut \textit{ReturnObject} der \textit{PrepareModel}-Klasse mit Informationen bezüglich der Auswertung. Dieses Objekt dient zur Übermittlung und zur Bewertung der enthaltenen Informationen.
-Beschreibung der einzelnen Klassen und deren Funktionalitäten
-\section{PrepareModel}
-\subsection{PrepareModel – Konstruktor}
-Im Konstruktor der Klasse \textit{PrepareModel} wird eine Variable der Klasse \textit{Process} definiert und mit den entsprechenden Start-Informationen befüllt. Darunter befindet sich beispielsweise der Pfad zu dem auszuführenden Python-Script oder auch der Pfad zu den auszuwertenden Bildern. Final wird die Funktion \textit{StartEmoRecTableInterpreter} ausgeführt.
-\subsection{StartEmoRecTableInterpreter}
-In dieser Funktion wird eine neue Instanz der Klasse \textit{EmotionTableInterpreter} erstellt und dabei die im Konstruktor definierte Prozess-Variable und das Attribut \textit{ReturnObject} übergeben.
-\subsection{GetReturnObject}
-\textit{GetReturnObject} gibt das Attribut \textit{ReturnObject} der Klasse \textit{PrepareModel} zurück, welches während der Auswertung befüllt wurde. 
-\section{ReturnObject}
-Hierbei handelt es sich um eine Klasse, die zur Rückgabe der durch die Auswertung erlangten Informationen dient. Das Objekt umfasst beschreibende und prozentuale Informationen zur erkannten Emotion. Des Weiteren verfügt es über eine Enumeration, welche den Typ der Rückgabe definiert. Dieser Typ gibt Auskunft über die Auswertbarkeit der in dem Objekt enthaltenen Informationen.
-\section{EmotionTableInterpreter}
-\subsection{EmotionTableInterpreter – Konstruktor}
-Dem Konstruktor der \textit{EmotionTableInterpreter}-Klasse werden sowohl die Prozess-Variable, sowie das Rückgabe-Objekt der \textit{PrepareModel}-Klasse übergeben. Der Prozess wird innerhalb des Konstruktors gestartet und dessen Ausgabe mit Hilfe von regulären Ausdrücken verarbeitet. Bevor die Auswertung der Prozessausgabe durch die \textit{Evaluate}-Funktion erfolgt, wird zuerst die Auswertbarkeit der Daten überprüft. Enthält eines der übergebenen Bilder mehr als ein erkanntes Gesicht wird die Auswertung nicht gestartet und entsprechende Informationen mit Hilfe des \textit{ReturnObjects} zurückgegeben. Enthalten die Bilder kein einziges Gesicht erfolgt ebenfalls keine Auswertung und das Rückgabe-Objekt ist vom Typ \textit{„NoFaceDetected“}. Die Auswertung durch \textit{Evaluate} startet, wenn in einer Bilderserie mindestens ein Bild genau ein Gesicht enthält und alle anderen Bilder kein Gesicht oder maximal ein Gesicht aufweisen.
-\subsection{Evaluate}
-Die Ausgabe des Python-Prozesses liefert Informationen über die im Bild erkannten Emotionen. Erkennbar sind Wut, Ekel, Angst, Fröhlichkeit, Traurigkeit, ein überraschter und ein neutraler Gesichtsausdruck. Die Prozess-Ausgabe pro Bild liefert für jede der obengenannten Emotionen eine Gewichtung. Durch die Funktion \textit{Evaluate} wird von jedem bewerteten Bild die höchst gewichtete Emotion dem Attribut \textit{hdEmoCollection} der Klasse \textit{EmotionTableInterpreter} hinzugefügt. Bei \textit{hdEmoCollection} handelt es sich um ein Feld des Typs \textit{Dictornary}, welches sich als Sammlung mehrerer Schlüssel-Wert-Paare definiert. Bei der Zuordnung der sogenannten „\textit{highest detected emotion“} durch die \textit{Evaluate}-Funktion wird wie folgt vorgegangen. Die Beschreibung der Emotion (bspw. \textit{„Fear“}) dient als Schlüssel eines \textit{hdEmoCollection}-Schlüssel-Wert-Paares und die Gewichtung der signifikantesten Emotion als Wert. Wird die Emotion \textit{„Fear“} mehrmals pro Auswertung erkannt erhöht dies den Wert des \textit{hdEmoCollection}-Elements um die jeweilige Gewichtung. So liefert die Funktion Evaluate eine Zusammenfassung der am besten erkannten Emotionen mit den aufsummierten Gewichtungen. (Siehe Abbildung \ref{fig:VisualisierungEvaluation})
- \begin{figure}
-\includegraphics[scale=0.5]{Evaluate_Veranschaulichung.png}
- \caption{Visualisierung des Auswertungsvorgangs}
- \label{fig:VisualisierungEvaluation}
- \end{figure}
-\subsection{GetEmotion}
-Diese Funktion liefert das Schlüssel-Wert-Paar der \textit{hdEmoCollection}, welches den höchsten Wert und somit auch die höchste Gewichtung enthält. Tritt der Fall ein, dass die Emotion \textit{„Neutral“} und eine beliebig andere Emotion, beispielsweise \textit{„Happy“}, den gleichen und höchsten Wert aufweisen, liefert die \textit{GetEmotion}-Funktion \textit{„Happy“}. Bei \textit{„Neutral“} handelt es sich um keine vom Benutzer zu fordernde Emotion und somit rechtfertigt sich diese Sonderregelung.
-
-%Lukas
-\section{Reguläre Ausdrücke in der Ergebniserkennung}
-In der Klasse \textit{EmotionTableInterpreter} werden drei Reguläre Ausdrücke benutzt, um die Ergebnisse des Python-Skripts, die als Konsolenausgabe vorliegen, in das Programm zu importieren. Zwei dieser Ausdrücke werden zur Erkennung verwendet, der dritte löscht Steuerzeichen, die im Eingabestring möglicherweise vorhanden sind. Die \texttt{System.Text.RegularExpressions}-Bibliothek bindet die Funktionalität zur Verwendung der Regulären Ausdrücke ein.
-\subsection{Begriffsdefinitionen}
-\begin{itemize}
-\item[-] Eingabestring: String, dessen Inhalt auf \textit{Matches} durchsucht wird.
-\item[-] Match (\textit{plural: Matches}): Teilstring(s) des \textit{Eingabestrings}, der mit dem \textit{Pattern} übereinstimmt.
-\item[-] Pattern: Regulärer Ausdruck
-\item[-] Subpattern: Teil eines Regulären Ausdrucks, der benannt wird, um leichter auf ihn zugreifen zu können. Einzelne Subpattern können auch gematcht werden. 
-\end{itemize}
-\subsection{Reguläre Ausdrücke für die Prozessausgabe}
-Die folgenden Pattern werden zur Verarbeitung der Ausgabe genutzt. Die einzelnen Abschnitte werden im Folgenden erklärt.
-\subsubsection{patternFaceFoundCount}
-Das Pattern \texttt{(Faces found:  (?<FacesFoundCount>[0-9]*))\{1\}} hat den Zweck, die Anzahl der erkannten Gesichter in einem Bild auszulesen. Der Subpattern \texttt{((?<FacesFoundCount>[0-9]*))\{1\}} mit dem Namen \textit{FacesFoundCount} hat als Match eine Zahl aus dem Intervall $\left[0;9\right] \in \mathbb{N}$ und gibt diese bei Aufruf zurück. Dieser Wert wird verwendet, um zu entscheiden, ob die vom Modell erzeugten Daten im \textit{EmotionTableInterpreter} ausgewertet werden sollen, oder nicht. Im Abschnitt "PrepareModel - Konstruktor" findet sich eine genauere Erklärung.
-\subsubsection{patternArray}
-Dieser Subpattern wird in seinen Teilen dargestellt, da die Darstellung sonst unübersichtlich werden würde. Der erste Teil betrifft den Namen des Subpatterns, das den gesamten Pattern umfasst \textit{SinglePicOutput}. Direkt nach der Benennung beginnt das erste Array, dessen Zahl auf Index 0 die erkannte Emotion anzeigt und den Index des Gewichts der erkannten Emotion im zweiten Array darstellt.
-\newline
-\texttt{(?<SinglePicOutput>(ar+ay([(?<HighestEmotionIndex>[0-6])([,][ ]*[0-6])*][, dtype=int[32|64]*]*)[,][]*}
-Das zweite Array beinhaltet die Gewichte aller erkannten Emotionen. Diese werden als Fließkommazahlen dargestellt und haben für niedrige Wahrscheinlichkeiten die Möglichkeit in Exponentenschreibweise ausgegeben zu werden, was zu  Zahlen wie \texttt{2.8267652e-05} (=> \texttt{2.8267652 $\cdot$ 10$^{-5}$}) führen kann. Da diese Zahlen potentiell alle das Gewicht für die höchste erkannte Emotion darstellen können, müssen sie alle getrennt in eigenen Subpattern erkannt werden, damit einfach auf sie zugegriffen werden kann. Dies wird im Abschnitt "Ablauf" eingehender besprochen. 
- \newline
-\texttt{(?<EmotionWeightArray>}
-\texttt{ar+ay([(?<EmotionWeightArray0>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}\newline
-\texttt{(?<EmotionWeightArray1>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}
-\texttt{(?<EmotionWeightArray2>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}
-\texttt{(?<EmotionWeightArray3>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}\newline
-\texttt{(?<EmotionWeightArray4>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}
-\texttt{(?<EmotionWeightArray5>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}
-\texttt{(?<EmotionWeightArray6>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)))}\newline
-
-\subsection{Ablauf}
-In diesem Teil soll erklärt werden, wie die Regulären Ausdrücke zur Datenextraktion genutzt werden. Zuerst werden aus dem Eingabestring alle Steuerzeichen entfernt. Da diese Aufgrund
- von Performance-, Stabilitäts- und Übersichtlichkeitsgründen nicht im Pattern \textit{patternArray} enthalten sind. Daraufhin wird auf der Grundlage von \textit{patternFaceFoundCount}
- der Eingabestring durchsucht und entsprechende Daten als Variable des Typs \textit{MatchCollection} gespeichert. Die Daten, die gegen \textit{patternFaceFoundCount} gematcht wurden, werden mit dem Namen
- des Subpatterns wie folgt aufgerufen: \texttt{MatchCollection[Index].Groups[NameDesSubpattern].Value}. Diese Daten sind dann vom Typ \textit{string} und können dann in eine anderen Typ konvertiert werden. Hier ist dies notwendig, um auf die Anzahl der erkannten Gesichter zuzugreifen und zu entscheiden, wie weiter vorgegangen werden soll.
- Danach wird der Eingabestring mit Hilfe des Patterns \texttt{patternArray} noch einmal gematcht und die einzelnen \textit{SinglePicOutput}-Subpatterns als \textit{strings} an die \textit{Evalute}-Methode übergeben. Dort wird zuerst das Subpattern \texttt{HighestEmotionIndex} ausgelesen und auf die Subpatterns des \texttt{EmotionWeightArray} angewendet, um den durch das Modell zugewiesenen Wert der Gewichtung der höchsten Emotion des Bildes auszulesen. Jetzt wird auf dern Namen der als wahrscheinlichsten erkannten Emotion aus dem Member \textit{string [] emoDefinition} mit dem erkannten Wert des Subpatterns \texttt{HighestEmotionIndex} zugegriffen. Die danach stattfindenden Berechnungen werden in den Abschnitten \textit{Evaluate} und \textit{GetEmotion} dargestellt. 
-
 %Julia
 \chapter{Material und Methoden}
 Die Entwicklung des Emotionserkennungsspiel ist in drei Bereichen geteilt:
@@ -80,9 +18,6 @@ die graphische Benutzeroberfläche, die dahinter steckende Logik bzw. das
 Neuronale Netz, das für die Emotionserkennung zuständig ist und die Schnittstelle
 zwischen beiden. Im Folgenden werden die Methoden der einzelnen Bestandteile
 des Programms beschrieben. 
-
-
-
 \section{Neuronale Netze}
 \label{subsec:statistical-summaries}
 Auf Grund seiner höheren Geschwindigkeit und großen Anzahl von verschiedenen
@@ -135,10 +70,68 @@ tatsächlich ein Gesicht erkannt wird, geht das Spiel weiter. Das Gesicht auf
 jedem Bild wird nach Emotionen Untersucht. Das Ergebnis wird auf der Kommandozeile
 in Form eines Feldes ausgegeben, in dem auf der ersten Position das
 Index von der Emotion steht, die am wahrscheinlichsten erkannt wurde.
+%David
+\chapter{Klassenbeschreibung}
+\section{Emotionserkennung – Zusammenspiel der verschiedenen Klassen}
+Die Erkennung einer Emotion anhand der zur Verfügung gestellten Bilder erfolgt durch ein Zusammenspiel der Klassen \textit{PrepareModel} und \textit{EmotionTableInterpreter}. Das Starten des Python-Prozesses zur Ermittlung der erkennbaren Emotionen liegt im Aufgabenbereich der \textit{PrepareModel}-Klasse. Des Weiteren startet \textit{PrepareModel} die Auswertung der vom Python-Prozess zurückgegeben Werte mittels der \textit{EmotionTableInterpreter}-Klasse. Ziel ist es, die am deutlichsten erkannte Emotion heraus zu filtern. Der Interpreter befüllt danach das Attribut \textit{ReturnObject} der \textit{PrepareModel}-Klasse mit Informationen bezüglich der Auswertung. Dieses Objekt dient zur Übermittlung und zur Bewertung der enthaltenen Informationen.
+\section{Beschreibung der einzelnen Klassen und deren Funktionalitäten}
+\subsection{PrepareModel}
+\subsubsection{PrepareModel – Konstruktor}
+Im Konstruktor der Klasse \textit{PrepareModel} wird eine Variable der Klasse \textit{Process} definiert und mit den entsprechenden Start-Informationen befüllt. Darunter befindet sich beispielsweise der Pfad zu dem auszuführenden Python-Script oder auch der Pfad zu den auszuwertenden Bildern. Final wird die Funktion \textit{StartEmoRecTableInterpreter} ausgeführt.
+\subsubsection{StartEmoRecTableInterpreter}
+In dieser Funktion wird eine neue Instanz der Klasse \textit{EmotionTableInterpreter} erstellt und dabei die im Konstruktor definierte Prozess-Variable und das Attribut \textit{ReturnObject} übergeben.
+\subsubsection{GetReturnObject}
+\textit{GetReturnObject} gibt das Attribut \textit{ReturnObject} der Klasse \textit{PrepareModel} zurück, welches während der Auswertung befüllt wurde. 
+\subsection{ReturnObject}
+Hierbei handelt es sich um eine Klasse, die zur Rückgabe der durch die Auswertung erlangten Informationen dient. Das Objekt umfasst beschreibende und prozentuale Informationen zur erkannten Emotion. Des Weiteren verfügt es über eine Enumeration, welche den Typ der Rückgabe definiert. Dieser Typ gibt Auskunft über die Auswertbarkeit der in dem Objekt enthaltenen Informationen.
+\subsection{EmotionTableInterpreter}
+\subsubsection{EmotionTableInterpreter – Konstruktor}
+Dem Konstruktor der \textit{EmotionTableInterpreter}-Klasse werden sowohl die Prozess-Variable, sowie das Rückgabe-Objekt der \textit{PrepareModel}-Klasse übergeben. Der Prozess wird innerhalb des Konstruktors gestartet und dessen Ausgabe mit Hilfe von regulären Ausdrücken verarbeitet. Bevor die Auswertung der Prozessausgabe durch die \textit{Evaluate}-Funktion erfolgt, wird zuerst die Auswertbarkeit der Daten überprüft. Enthält eines der übergebenen Bilder mehr als ein erkanntes Gesicht wird die Auswertung nicht gestartet und entsprechende Informationen mit Hilfe des \textit{ReturnObjects} zurückgegeben. Enthalten die Bilder kein einziges Gesicht erfolgt ebenfalls keine Auswertung und das Rückgabe-Objekt ist vom Typ \textit{„NoFaceDetected“}. Die Auswertung durch \textit{Evaluate} startet, wenn in einer Bilderserie mindestens ein Bild genau ein Gesicht enthält und alle anderen Bilder kein Gesicht oder maximal ein Gesicht aufweisen.
+\subsubsection{Evaluate}
+Die Ausgabe des Python-Prozesses liefert Informationen über die im Bild erkannten Emotionen. Erkennbar sind Wut, Ekel, Angst, Fröhlichkeit, Traurigkeit, ein überraschter und ein neutraler Gesichtsausdruck. Die Prozess-Ausgabe pro Bild liefert für jede der obengenannten Emotionen eine Gewichtung. Durch die Funktion \textit{Evaluate} wird von jedem bewerteten Bild die höchst gewichtete Emotion dem Attribut \textit{hdEmoCollection} der Klasse \textit{EmotionTableInterpreter} hinzugefügt. Bei \textit{hdEmoCollection} handelt es sich um ein Feld des Typs \textit{Dictornary}, welches sich als Sammlung mehrerer Schlüssel-Wert-Paare definiert. Bei der Zuordnung der sogenannten „\textit{highest detected emotion“} durch die \textit{Evaluate}-Funktion wird wie folgt vorgegangen. Die Beschreibung der Emotion (bspw. \textit{„Fear“}) dient als Schlüssel eines \textit{hdEmoCollection}-Schlüssel-Wert-Paares und die Gewichtung der signifikantesten Emotion als Wert. Wird die Emotion \textit{„Fear“} mehrmals pro Auswertung erkannt erhöht dies den Wert des \textit{hdEmoCollection}-Elements um die jeweilige Gewichtung. So liefert die Funktion Evaluate eine Zusammenfassung der am besten erkannten Emotionen mit den aufsummierten Gewichtungen. (Siehe Abbildung \ref{fig:VisualisierungEvaluation})
+ \begin{figure}
+\includegraphics[scale=0.5]{Evaluate_Veranschaulichung.png}
+ \caption{Visualisierung des Auswertungsvorgangs}
+ \label{fig:VisualisierungEvaluation}
+ \end{figure}
+\subsubsection{GetEmotion}
+Diese Funktion liefert das Schlüssel-Wert-Paar der \textit{hdEmoCollection}, welches den höchsten Wert und somit auch die höchste Gewichtung enthält. Tritt der Fall ein, dass die Emotion \textit{„Neutral“} und eine beliebig andere Emotion, beispielsweise \textit{„Happy“}, den gleichen und höchsten Wert aufweisen, liefert die \textit{GetEmotion}-Funktion \textit{„Happy“}. Bei \textit{„Neutral“} handelt es sich um keine vom Benutzer zu fordernde Emotion und somit rechtfertigt sich diese Sonderregelung.
 
+%Lukas
+\section{Reguläre Ausdrücke in der Ergebniserkennung}
+In der Klasse \textit{EmotionTableInterpreter} werden drei Reguläre Ausdrücke benutzt, um die Ergebnisse des Python-Skripts, die als Konsolenausgabe vorliegen, in das Programm zu importieren. Zwei dieser Ausdrücke werden zur Erkennung verwendet, der dritte löscht Steuerzeichen, die im Eingabestring möglicherweise vorhanden sind. Die \texttt{System.Text.RegularExpressions}-Bibliothek bindet die Funktionalität zur Verwendung der Regulären Ausdrücke ein.
+\subsection{Begriffsdefinitionen}
+\begin{itemize}
+\item[-] Eingabestring: String, dessen Inhalt auf \textit{Matches} durchsucht wird.
+\item[-] Match (\textit{plural: Matches}): Teilstring(s) des \textit{Eingabestrings}, der mit dem \textit{Pattern} übereinstimmt.
+\item[-] Pattern: Regulärer Ausdruck
+\item[-] Subpattern: Teil eines Regulären Ausdrucks, der benannt wird, um leichter auf ihn zugreifen zu können. Einzelne Subpattern können auch gematcht werden. 
+\end{itemize}
+\subsection{Reguläre Ausdrücke für die Prozessausgabe}
+Die folgenden Pattern werden zur Verarbeitung der Ausgabe genutzt. Die einzelnen Abschnitte werden im Folgenden erklärt.
+\subsubsection{patternFaceFoundCount}
+Das Pattern \texttt{(Faces found:  (?<FacesFoundCount>[0-9]*))\{1\}} hat den Zweck, die Anzahl der erkannten Gesichter in einem Bild auszulesen. Der Subpattern \texttt{((?<FacesFoundCount>[0-9]*))\{1\}} mit dem Namen \textit{FacesFoundCount} hat als Match eine Zahl aus dem Intervall $\left[0;9\right] \in \mathbb{N}$ und gibt diese bei Aufruf zurück. Dieser Wert wird verwendet, um zu entscheiden, ob die vom Modell erzeugten Daten im \textit{EmotionTableInterpreter} ausgewertet werden sollen, oder nicht. Im Abschnitt "PrepareModel - Konstruktor" findet sich eine genauere Erklärung.
+\subsubsection{patternArray}
+Dieser Subpattern wird in seinen Teilen dargestellt, da die Darstellung sonst unübersichtlich werden würde. Der erste Teil betrifft den Namen des Subpatterns, das den gesamten Pattern umfasst \textit{SinglePicOutput}. Direkt nach der Benennung beginnt das erste Array, dessen Zahl auf Index 0 die erkannte Emotion anzeigt und den Index des Gewichts der erkannten Emotion im zweiten Array darstellt.
+\newline
+\texttt{(?<SinglePicOutput>(ar+ay([(?<HighestEmotionIndex>[0-6])([,][ ]*[0-6])*][, dtype=int[32|64]*]*)[,][]*}
+Das zweite Array beinhaltet die Gewichte aller erkannten Emotionen. Diese werden als Fließkommazahlen dargestellt und haben für niedrige Wahrscheinlichkeiten die Möglichkeit in Exponentenschreibweise ausgegeben zu werden, was zu  Zahlen wie \texttt{2.8267652e-05} (=> \texttt{2.8267652 $\cdot$ 10$^{-5}$}) führen kann. Da diese Zahlen potentiell alle das Gewicht für die höchste erkannte Emotion darstellen können, müssen sie alle getrennt in eigenen Subpattern erkannt werden, damit einfach auf sie zugegriffen werden kann. Dies wird im Abschnitt "Ablauf" eingehender besprochen. 
+ \newline
+\texttt{(?<EmotionWeightArray>}
+\texttt{ar+ay([(?<EmotionWeightArray0>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}\newline
+\texttt{(?<EmotionWeightArray1>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}
+\texttt{(?<EmotionWeightArray2>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}
+\texttt{(?<EmotionWeightArray3>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}\newline
+\texttt{(?<EmotionWeightArray4>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}
+\texttt{(?<EmotionWeightArray5>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*}
+\texttt{(?<EmotionWeightArray6>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)))}\newline
 
-
-
+\subsection{Ablauf}
+In diesem Teil soll erklärt werden, wie die Regulären Ausdrücke zur Datenextraktion genutzt werden. Zuerst werden aus dem Eingabestring alle Steuerzeichen entfernt. Da diese Aufgrund
+ von Performance-, Stabilitäts- und Übersichtlichkeitsgründen nicht im Pattern \textit{patternArray} enthalten sind. Daraufhin wird auf der Grundlage von \textit{patternFaceFoundCount}
+ der Eingabestring durchsucht und entsprechende Daten als Variable des Typs \textit{MatchCollection} gespeichert. Die Daten, die gegen \textit{patternFaceFoundCount} gematcht wurden, werden mit dem Namen
+ des Subpatterns wie folgt aufgerufen: \texttt{MatchCollection[Index].Groups[NameDesSubpattern].Value}. Diese Daten sind dann vom Typ \textit{string} und können dann in eine anderen Typ konvertiert werden. Hier ist dies notwendig, um auf die Anzahl der erkannten Gesichter zuzugreifen und zu entscheiden, wie weiter vorgegangen werden soll.
+ Danach wird der Eingabestring mit Hilfe des Patterns \texttt{patternArray} noch einmal gematcht und die einzelnen \textit{SinglePicOutput}-Subpatterns als \textit{strings} an die \textit{Evalute}-Methode übergeben. Dort wird zuerst das Subpattern \texttt{HighestEmotionIndex} ausgelesen und auf die Subpatterns des \texttt{EmotionWeightArray} angewendet, um den durch das Modell zugewiesenen Wert der Gewichtung der höchsten Emotion des Bildes auszulesen. Jetzt wird auf dern Namen der als wahrscheinlichsten erkannten Emotion aus dem Member \textit{string [] emoDefinition} mit dem erkannten Wert des Subpatterns \texttt{HighestEmotionIndex} zugegriffen. Die danach stattfindenden Berechnungen werden in den Abschnitten \textit{Evaluate} und \textit{GetEmotion} dargestellt. 
 
 
 \bibliographystyle{plain}
