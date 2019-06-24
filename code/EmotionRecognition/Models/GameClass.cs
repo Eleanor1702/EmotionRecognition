@@ -5,6 +5,7 @@ namespace EmotionRecognition.Models {
     public class GameClass {
 
         private NNUnit nnUnit;
+        public ReturnObject testObj;
         private int points;
 
         public GameClass() {
@@ -21,6 +22,9 @@ namespace EmotionRecognition.Models {
         public bool CompareEmotion(string randomEmotion) {
             //NN analyse throws an object with EmotionName, percentage and user Recognition.
             ReturnObject result = nnUnit.analyse();
+
+            //Debug Mode Ausgabe !!Deleted after Test!!!
+            this.testObj = result;
 
             //check if NNUnit threw an Exception (During Game)
             switch (result.FaceDetected) {

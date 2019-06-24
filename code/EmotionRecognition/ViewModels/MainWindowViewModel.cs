@@ -20,7 +20,7 @@ namespace EmotionRecognition.ViewModels {
         private void updateUserMsg(string msg) {
             Application.Current.Dispatcher.Invoke(new Action(() => {
                 //Update Label "UserMessage" Content
-                MainWindow.main.UserMessage.Content = msg;
+                MainWindow.main.UserMessage.Text = msg;
             }));
         }
 
@@ -29,6 +29,8 @@ namespace EmotionRecognition.ViewModels {
             Application.Current.Dispatcher.Invoke(new Action(() => {
                 //Get generated Emoji and update Emoji Div Content
                 MainWindow.main.Emoji.Source = new BitmapImage(new Uri("Emoji/" + emotion + ".png", UriKind.Relative));
+                //Set Emoji Name
+                MainWindow.main.EmojiName.Content = emotion;
             }));
         }
 
@@ -44,7 +46,11 @@ namespace EmotionRecognition.ViewModels {
 		private void resetGame() {
 			Application.Current.Dispatcher.Invoke(new Action(() => {
 				MainWindow.main.Emoji.Source = null;
+                MainWindow.main.EmojiName.Content = null;
 				MainWindow.main.Points.Content = null;
+
+                //DebugMode !!TEST
+                MainWindow.main.DebugModeOutput.Text = null;
 			}));
 
             //reset points in game
@@ -62,6 +68,13 @@ namespace EmotionRecognition.ViewModels {
             FileStream fstream = new FileStream(filepath, FileMode.Create);
             encoder.Save(fstream);
             fstream.Close();
+        }
+
+        private void getDebugModeOutput(ReturnObject obj) {
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                //update Debug Mode Output
+                MainWindow.main.DebugModeOutput.Text = "ReturnObject: " + obj.FaceDetected + "\n Emotion: " + obj.Emotion;
+            }));
         }
 
         //Main function of Game Logic
@@ -102,6 +115,9 @@ namespace EmotionRecognition.ViewModels {
                     //Get random generated Emoji from Emotiongenerator in Services. Usually captured Image should be passed here as well
                     bool result = game.CompareEmotion(emotion);
 
+                    //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
+                    getDebugModeOutput(game.testObj);
+
                     //Rate the results and update UI
                     if (result) {
 						updateUserMsg("Jawohl! Gut gemacht!");
@@ -116,7 +132,11 @@ namespace EmotionRecognition.ViewModels {
 				} catch (UserMissingException) {
 
 					updateUserMsg("Spiel wurde abgebrochen! Bis zum nächsten mal!");
-					System.Threading.Thread.Sleep(5000);
+
+                    //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
+                    getDebugModeOutput(game.testObj);
+
+                    System.Threading.Thread.Sleep(5000);
 
 					//reset game
 					resetGame();
@@ -127,13 +147,20 @@ namespace EmotionRecognition.ViewModels {
 				} catch (MoreThanOneUserException) {
 
                     updateUserMsg("Wir erkennen mehr als eine Person. Die Runde wurde abgebrochen!");
+
+                    //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
+                    getDebugModeOutput(game.testObj);
+
                     System.Threading.Thread.Sleep(5000);
 
                 } catch (UnknownException) {
 
                     updateUserMsg("Unbekannter Fehler ist aufgetreten! Die Runde wurde abgebrochen!");
-                    System.Threading.Thread.Sleep(5000);
 
+                    //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
+                    getDebugModeOutput(game.testObj);
+
+                    System.Threading.Thread.Sleep(5000);
                 }
 			}
 
@@ -143,8 +170,9 @@ namespace EmotionRecognition.ViewModels {
 		public void recognizeUser(){
 			while(true){
 
-				updateUserMsg("Gib uns paar sekunden um dich zu erkennen");
-				System.Threading.Thread.Sleep(3000);
+                updateUserMsg("Na, Lust eine Runde zu spielen?" + "\n" + "Es darf nur eine Person in der Kamera zu sehen sein..");
+				
+				System.Threading.Thread.Sleep(1000);
 
                 //send video instance to NNUnit to check if user exist
                 ReturnObject.Type recognizedUserType = ReturnObject.Type.Exception;
@@ -155,7 +183,6 @@ namespace EmotionRecognition.ViewModels {
 				}));
 
                 System.Threading.Thread.Sleep(100);
-                updateUserMsg("Bild wird analysiert....");
 
                 recognizedUserType = game.TryToRecognizeUser();
 
@@ -164,14 +191,8 @@ namespace EmotionRecognition.ViewModels {
                         updateUserMsg("Willkommen zum Spiel! Viel Spaß!");
                         run();
                         break;
-                    case ReturnObject.Type.MoreThanOneFaceDetected:
-                        updateUserMsg("Wir erkennen mehr als eine Person. Das Spiel konnte nicht gestartet werden!");
-                        break;
                     case ReturnObject.Type.Exception:
                         updateUserMsg("Ein Fehler ist aufgetreten! Bitte wenden Sie sich an einen Mitarbeiter!");
-                        break;
-                    case ReturnObject.Type.NoFaceDetected:
-                        updateUserMsg("Kein Gesicht ist erkannt. Lass uns nochmal probieren!");
                         System.Threading.Thread.Sleep(3000);
                         break;
                 }

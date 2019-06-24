@@ -36,9 +36,9 @@
 
         <!-- Welcome Msg Container -->
         <Border Grid.Column="0" Grid.Row="1">
-            <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="40" Name="UserMessage">
+            <TextBlock TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="40" Name="UserMessage">
                 Bitte stellen Sie sich vor die Kamera um zu beginnen
-            </Label>
+            </TextBlock>
         </Border>
 
         <!-- Points and Emoji Container -->
@@ -62,7 +62,7 @@
 
                 <Border Grid.Column="0" Grid.Row="0" Background="LightSteelBlue" CornerRadius="10,10,0,0">
                     <!-- Label -->
-                    <Label VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="30">
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="30">
                         Points
                     </Label>
                 </Border>
@@ -73,23 +73,47 @@
                 </Border>
             </Grid>
 
-            <!-- Emoji Div -->
-            <Grid Grid.Column="2" Grid.Row="0">
+            <!-- Debug Mode Div-->
+            <Grid Grid.Column="1" Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
 
+                <Border Grid.Column="0" Grid.Row="0">
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="30">
+                        Debug Mode Output
+                    </Label>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="1">
+                    <TextBlock Name="DebugModeOutput" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="25"></TextBlock>
+                </Border>
+            </Grid>
+
+            <!-- Emoji Div -->
+            <Grid Grid.Column="2" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
                 <Border Grid.Column="0" Grid.Row="0" Background="LightSteelBlue" CornerRadius="10,10,0,0">
                     <!-- Label -->
-                    <Label VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="30">
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="30">
                         Emoji
                     </Label>
                 </Border>
 
-                <Border Grid.Column="0" Grid.Row="1" Background="#dde7e8" CornerRadius="0,0,10,10" Padding="5">
+                <Border Grid.Column="0" Grid.Row="1" Background="#dde7e8">
                     <!-- Emoji -->
                     <Image Name="Emoji"></Image>
+                </Border>
+
+                <Border Grid.Column="0" Grid.Row="2" Background="#dde7e8" CornerRadius="0,0,10,10" Padding="5">
+                    <!-- Emoji Name -->
+                    <Label Name="EmojiName" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="20"></Label>
                 </Border>
             </Grid>
         </Grid>
