@@ -61,10 +61,10 @@ im Sommersemester 2019 von\\
 \begin{multicols}{1}
 
 \textbf{Lukas Schulz}\\
-Matrikelnummer: 3042081
+Matrikelnummer: 1234567
 
 \textbf{Noor Alrabea}\\
-Matrikelnummer: 12345678
+Matrikelnummer: 3103436
 \end{multicols}
 
 \begin{multicols}{2}
@@ -83,13 +83,12 @@ Matrikelnummer: 3091609
 Matrikelnummer: 12345678
 \end{multicols}
 
-
 \begin{multicols}{2}
 \textbf{Julia Karnaukh}\\
 Matrikelnummer: 12345678
 
 \textbf{David Wolf}\\
-Matrikelnummer: 3100998
+Matrikelnummer: 12345678
 \end{multicols}
 
 \vfill
@@ -221,12 +220,142 @@ Die durch das Fraunhofer Institut für Integrierte Schaltungen entwickelte Bilda
 Eine weitere Möglichkeit der Verwendung von SHORE besteht darin, in einer Datenbrille eingebunden beispielsweise autistischen Menschen das Leben zu erleichtern. Erkrankte haben dabei in den meisten Fällen große Probleme, die Gefühlslage ihres Gesprächspartners und den Subtext so mancher Aussagen zu erkennen. Durch die über die Brille erhaltenen Informationen kann so der Alltag stark erleichtert werden\cite{Ruf2011} \cite{SHORE}. 
 
 \chapter{Material und Methoden}
+Die Entwicklung von dem Emotionserkennungsspiel ist in drei Bereichen geteilt:
+die graphische Benutzeroberfläche, die sich dahinter steckende Logik bzw. die
+Neuronale Netz, die für die Emotionerkennung zuständig ist und die Schnittstelle
+von den beiden. Im Folgenden werden die Methoden von den einzelnen Bestandteilen
+des Programms beschrieben. 
+
+
 \section{Neuronale Netze}
+%\label{subsec:statistical-summaries}
+Auf Grund seiner höhen Geschwindigkeit und großen Anzahl von verschiedenen
+bereitgestellten Bibliotheken gilt Python als eine der besten Programmiersprachen
+für die Entwicklung einer Künstlichen Intelligenz-basierten Software.
+\newline
+Python wird in Kombination mit dem Deep Learning Framework  \textit{TensorFlow} angewendet, um die Netz "lehren" und ihre Ergebnisse interpretieren zu können.
+Bei diesem Projekt wurden die Python Version 3.6 und die TensorFlow Version
+1.7 verwendet.
+ \newline
+Als Vorlage diente ein Beispielskript \cite{LeweOhlsenGit}, das ein Videosignal über die Webkamera
+empfängt, das Video dann in einzelne Bilder (Frames) zerteilt und jedes Bild
+nach Emotionen untersucht. Das Skript wurde während des Laborpraktikums
+umgebaut und an die Benutzeroberäche und die Schnittstellen angepasst.\newline
+Um die einzelne Bilder zu bewerten reicht die neuronale Netz allein nicht aus. Man
+braucht auch ein Framework, das Bildverarbeitungs-Algorithmen zur Verfügung
+stellt. So ein Framework ist OpenCV, das sich gut mit Python kompilieren lässt.
+Die ausgewählte OpenCV Version ist 3.4.
+ \newline
+Zur Verfügung standen drei bereits trainierten neuronalen Netzte bzw. Modele: \newline
+
+\begin{itemize}
+\item  FER2013 \cite{IasGoodefellow}
+\end{itemize}
+\begin{itemize}
+\item CK+
+\end{itemize}
+\begin{itemize}
+\item FERPlus \newline
+\end{itemize}
+
+
+Eins von diesen Modellen bindet man ins Skript ein, um auf der Basis von
+dem ausgewählten Modell die Emotionerkennung zu ermöglichen. Bei dem Emotionserkennungsspiel
+handelt es sich um den FERPlus-Datensatz. 
+ \cite{LeweOhlsen} Der Datensatz wurde
+von einer Forschungsgruppe bei Microsoft entwickelt. Der unterscheidet sich
+von seinem Vorgänge FER2013 im genauren Crowdsourcing für den Tagging-
+Vorgang.
+ \cite{RamakrishnanPandeyKarmakarSaha} 
+Dieser Datensatz verfügt über sieben Emotionsklassen: Wut, Ekel,
+Angst, Freude, Trauer, Überraschung und neutrale Emotion.\newline
+Im Gegensatz zum Beispielsskript, empfängt das für das Spiel entwickelte Skript 
+kein Stream von der Webkamera, sondern bekommt von der Benutzeroberfläche
+ein Ordnerverzeichnis übergeben. In dem Ordner befinden sich Bilder, die bereits
+aus dem Videostream ausgeschnitten worden sind. In einem Ordner sollen Bilder
+mit der gleichen Emotion abgespeichert werden. Die Bilder nacheinander werde
+eingelesen.
+ \newline
+Zunächst wird es überprüft, ob auf dem Bild ein Gesicht gefunden bzw.
+erkannt werden kann. Laut den Spielregeln darf es nur einen Spieler geben,
+deswegen, wenn die Neuronale Netz mehr als ein Gesicht oder doch gar kein
+Gesicht erkannt wird, liefert das Skript eine Meldung zurück. Falls es sich aber
+tatsächlich bloß ein Gesicht erkennen lässt, geht das Spiel weiter. Das Gesicht auf
+jedem Bild wird nach Emotionen Untersucht. Das Ergebnis wird auf der Kommandozeile
+in Form eines Feldes ausgegeben, in dem auf der ersten Position das
+Index von der Emotion steht, die am wahrscheinlichsten erkannt wurde.
+
 
 \section{Benutzeroberfläche}
 
-\section{Schnittstelle}
-????
+\subsection{Werkzeuge Oberflächenlogik} %????
+\subsubsection{C\#}
+Was ist C\#? \\
+C\# ist eine typsichere, objekt-orientierte Programmiersprache. Sie wurde 2001 von Anders Hejlsberg im Auftrag von Microsoft entwickelt. Es ist eine plattformunabhängige Sprache, wurde aber für die .NET-Umgebung entworfen. C\# basiert auf den Programmiersprachen C und C++ und ist eng verwandt mit Java\cite{Shildt2010}.\\
+Warum haben wir C\# gewählt? \\
+Da C\# grundlegend mit denen von uns bereits im Zuge des Studiums gelernten Programmiersprachen C sowie C++ verwandt ist, aber zusätzlich eine zeit- und aufwandsarme Umsetzung des MVVM Schema bietet, haben wir uns für diese Sprache entschieden.
+
+\subsubsection{.NET Framework} 
+Das .NET Framework wurde 2002 von Microsoft entwickelt. Ziele des Frameworks wie auch der Plattform .NET sind unter anderem Kompatibilität zwischen verschiedenen Plattformen, Zusammenführung bisher inkompatibler Microsoft Technologien und Verbesserung veralteter Standards. \cite{DotNet}
+\\
+Einer der zwei Hauptbestandteile des .NET Framework ist die .NET Klassenbibliothek. Damit ist es möglich sowohl schnell einfache Anwendungen als auch Unternehmensanwendungen im großen Stil zu entwickeln. Auch Umsetzungen der „Gang of Four“-Pattern, sowie andere Strukturen, wie das von uns benutzte Model-View-Viewmodel-Strukturmuster sind im .NET Framework enthalten.  \\
+
+Die Objektorientierung von C\# ist auch in der .NET Klassenbibliothek fortgeführt, so das jedes Element als Objekt, von der Instanzen bestehen können, behandelt wird. Diese Objekte können von wiederum anderen Objekten erben, d.h. diese um Parameter und Funktionen erweitern. Die Wurzel der .NET-Klassenhierarchie ist die Klasse Objekt von der alle anderen Klassen ableiten. Auf diese Weise entsteht eine mehr oder weniger ausgeprägte Baumstruktur\cite{Kühnel}. \\
+
+Die zweite Komponente ist die Common Language Runtime (CLR). Die CLR ist die Umgebung, in der die .NET-Anwendungen ausgeführt werden. Diese Umgebung beinhaltet unter anderem Dienste wie:
+\begin{itemize}
+\item Der Class Loader, um Klassen in die Laufzeitumgebung zu laden
+\item Der Type Checker, der unzulässige Typkonvertierungen unterbindet
+\item Der Garbage Collector, der eine  automatische Speicherbereinigung anstößt, wenn Objekte nicht mehr benötigt werden
+\item Der Exception Manager, der die Ausnahmebehandlung unterstützt
+\item Die Debug Machine zum Debuggen der Anwendung, und viele mehr \cite{Kühnel}
+\end{itemize}
+\subsubsection{WPF}
+Was ist WPF? \\
+Mit dem .NET Framework 3.0 wurde 2006 eine neue Programmierschnittstelle für Windows-Anwendungen eingeführt, die sich Windows Presentation Foundation (WPF) nannte. \\
+Mit WPF lassen sich grafische Benutzeroberflächen entwickeln. Im Gegensatz zum Vorgänger, der WinFormAPI, trennt WPF die Präsentations- und Geschäftslogik. Dadurch wird eine Umsetzung des Model-View-Viewmodel-Strukturmuster möglich.  \\
+Die Benutzeroberfläche (View) wird mit einer an XML angelehnten Sprache beschrieben. Diese Sprache heißt eXtensible Application Markup Language (XAML). Dadurch ist es möglich, die Beschreibung der Benutzeroberfläche strikt vom logischen Code zu trennen\cite{Kühnel}. \\
+Warum haben wir WPF gewählt?
+Durch die Trennung von Präsentations- und Geschäftslogik ist eine übersichtliche Strukturierung des Projekts möglich. Da unser Team auf verschiedene Kernthemen unterteilt ist, die im Großen und Ganzen der Aufteilung des WPF entspricht, lag die Wahl auf WPF sehr nahe.
+
+\subsubsection{MVVM}
+Was ist MVVM? \\
+Das Model-View-Viewmodel-Strukturmuster (MVVM) ist eine Variante des Model-View-Controller-Muster (MVC). Hier entspricht das Viewmodel dem Controller und übernimmt dessen Funktion. \\
+\begin{itemize}
+\item Das Model (Datenmodell) stellt alle für die Verarbeitung einer Anforderung notwendigen Daten und Informationen bereit.
+\item Der Controller (Viewmodel) steuert die Verarbeitung, er nimmt die Anforderungen entgegen, befüllt das Model und gibt danach die Kontrolle an die View weiter.
+\item Die View (Ansicht) ist für die Darstellung der Informationen, die sie in Form des Models vom Controller erhält, zuständig\cite{Kühnel}.
+\end{itemize}
+
+\subsection{Aufbau und Ablauf der Oberflächenlogik}
+Der Einstiegspunkt der Oberfläche und sogleich das einzige Fenster des Programms ist das sogenannte "{}MainWindow"{}. In WPF kann man Fenster in unterschiedliche Dateien aufteilen. Im Falle des "{}MainWindows"{} wurde hierbei eine Unterteilung in eine ”{}XAML"{} und eine “{}C Sharp"{} Datei durchgeführt. Die "{}XAML"{} Datei legt das Layout des Fensters sowie alle Bezeichner der Komponenten fest, während die "{}C Sharp"{} Datei für die Interaktivität der Komponenten des Fensters sorgt. 
+\paragraph{}
+Beim Starten der GUI müssen zuerst alle Komponenten des "{}MainWindows"{} initialisiert werden. Vorher kann kein Code mit diesen Komponenten arbeiten, da diese ansonsten noch nicht existieren. Anschließend wird in einem neuen "{}Thread"{} die Logik des Programms gestartet.
+\paragraph{}
+In WPF läuft die GUI innerhalb des "{}Hauptthreads"{}. Dieser behandelt Interaktionen mit dem User, wie beispielsweise Eingaben oder das Schließen des Fensters. Falls man nun Code innerhalb des "{}Hauptthreads"{} ausführen würde, könnte das System auf keinerlei Eingaben des Users mehr reagieren, da der Thread, der dafür zuständig sein sollte, durch den programmierten Code blockiert wird. Aus diesem Grund muss man für die spezielle Programmlogik einen seperaten Thread erstellen. Dabei ist zu beachten, dass dieser Thread als "{}Background-Thread"{} konfiguriert wird. Das bedeutet, dass bei Schließen des Programms und damit auch Terminieren des "{}Hauptthreads"{}, der seperate Thread ebenfalls terminiert wird. Würde man diese Konfiguration unterlassen, bleibt das Programm nach Schließen der Oberfläche weiterhin aktiv.
+\paragraph{}
+Innerhalb des neuen Threads wird eine Instanz von "{}MainWindowViewModel"{} erstellt. Das "{}MainWindowViewModel"{} stellt die Schnittstelle zwischen der tatsächlichen GUI (View) und der da hinterliegenden Logik und Daten (Model). Das "{}ViewModel"{} ruft die benötigten Abhängigkeiten der Oberfläche auf (beispielsweise das neuronale Netz), verarbeitet deren Antwort und aktualisiert die Oberfläche um den User über den derzeitigen Zustand des Programms zu informieren. 
+\paragraph{}
+Der Einstieg des "{}ViewModels"{} ist die Erkennung des Users. Hierbei kann es zu unterschiedlichen Fällen kommen. Werden mehrere User erkannt oder wird kein User erkannt, bricht das Programm die Analyse ab und probiert es zu einem späteren Zeitpunkt erneut. Falls jedoch ein einziges Gesicht erkannt wurde, startet das Programm eine Spielrunde.
+
+\paragraph{}
+Bei der Änderung der GUI durch das "{}ViewModel"{} muss ebenfalls ein wichtiger Punkt beachtet werden. Falls man eine Änderung auf der GUI durchführen möchte, beispielsweise die Änderung des Textes eines Labels, kann dies nicht im "{}Background-Thread"{} durchgeführt werden. Dies ist nur innerhalb des Hauptthreads erlaubt. WPF bietet Möglichkeiten um Aktionen für den Hauptthread einzustellen, die anschließend dort ausgeführt werden. Dies wird vielfach innerhalb das "{}MainWindowViewModels"{} aufgerufen.
+\paragraph{}
+Eine Spielrunde startet durch das randomisierte Generieren eines Emojis. Hierbei wird zwischen "{}Wütend"{}, "{}Ekel"{}, "{}Angst"{}, "{}Freude"{}, "{}Neutral"{}, "{}Traurig"{} und "{}Überrascht"{} ausgewählt. Diese Emojis sind als externe Bilder gespeichert und werden bei Bedarf geladen und in der GUI angezeigt. Anschließend wird der User gebeten die Emotion des Emojis nachzumachen. Nach einer gewissen Zeit, wird ein Bild des Users aufgenommen und an einem vorgegebenen Ort als eine JPEG Datei gespeichert. Das neuronale Netz übernimmt nachfolgend den Programmablauf und analysiert das gespeicherte Bild.
+\paragraph{}
+Diese Analyse kann zu drei unterschiedlichen Fällen führen. Die erste Möglichkeit ist, dass kein Gesicht erkennbar war, da der User beispielsweise das Spiel verlassen hat. Hierbei wird eine Information ausgegeben und das System versucht erneut in regelmäßigen Abständen ein Gesicht für eine neue Spielrunde zu erkennen. Die zweite Möglichkeit ist, dass das neuronale Netz mehrere Gesichter erkannt hat. In diesem Fall wird eine Fehlermeldung ausgegeben und eine neue Spielrunde gestartet. Die letzte Möglichkeit ist, dass nur ein User erkannt wird. Das neuronale Netz gibt im Erfolgsfall eine Prozentzahl an, die spezifiziert wie gut eine bestimmte Emotion erkannt wurde. Wichtig ist das nur die Emotion mit der größten Prozentzahl verarbeitet wird. Falls diese mit der randomisierten Emotion übereinstimmt, bekommt der User die Prozentzahl auf sein Punktekonto gutgeschrieben. Andernfalls bekommt der User keine zusätzlichen Punkte und die nächste Runde beginnt.
+
+
+
+\subsection{WebCam}
+Die Webcam wird von der MainWindow Klasse gesteuert. Sie ist über die Using-Direktive WebEye.Controls.Wpf eingebunden.   Sobald das Fenster nach dem Start der Applikation geladen hat, wird die Webcam über die Funktion
+ OnWindowLoaded(object sender, RoutedEventArgs e) initialisiert. In der Funktion wird dabei zuerst eine Liste aller Webcams, die dem System verfügbar sind, erstellt.  Die Webcam an der erster Stelle dieser Liste wird anschließend mit webCameraControl.StartCapture(cameras[0]) 	gestartet. Dieser Kamerastream wird in der MainWindowViewModel Klasse dazu benutzt Bilder für das Neuronale Netz zu machen. Dies geschieht im fünf Sekunden Takt wenn kein Gesicht erkannt wurde und im elf Sekunden Takt wenn das Spiel gestartet wurde. Mithilfe von img = BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage()) wird das aktuelle Webcam Bild 
+als Objekt des Typs BitmapSource gespeichert, was anschließend beim Verwenden des neuronalen Netzes genutzt wird.
+
+
+
+
+
 
 \chapter{Ergebnisse}
 
