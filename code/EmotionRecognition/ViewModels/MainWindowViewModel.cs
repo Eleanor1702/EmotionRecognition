@@ -60,13 +60,13 @@ namespace EmotionRecognition.ViewModels {
 		}
 
         //sava image in Folder to be used
-        private void saveImage(BitmapSource bitPic) {
+        private void saveImage(BitmapSource bitPic, int num) {
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitPic));
             encoder.QualityLevel = 100;
 
             //relative Path
-            string filepath = @"..\..\Images\capture.jpg";
+            string filepath = @"..\..\Images\capture" + num + ".jpg";
             FileStream fstream = new FileStream(filepath, FileMode.Create);
             encoder.Save(fstream);
             fstream.Close();
@@ -102,10 +102,17 @@ namespace EmotionRecognition.ViewModels {
 
 				//capture Image + save
 				BitmapSource img = null;
-				Application.Current.Dispatcher.Invoke(new Action(() => {
-					img = BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage());
-                    saveImage(img);
-                }));
+                int count = 5;
+                while(count != 0) {
+                    Application.Current.Dispatcher.Invoke(new Action(() => {
+                        img = BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage());
+                        saveImage(img, count);
+                    }));
+                    --count;
+                }
+
+                //Allow 5 captures
+                count = 5;
 
                 System.Threading.Thread.Sleep(100);
 
@@ -179,10 +186,17 @@ namespace EmotionRecognition.ViewModels {
                 //send video instance to NNUnit to check if user exist
                 ReturnObject.Type recognizedUserType = ReturnObject.Type.Exception;
 
-                Application.Current.Dispatcher.Invoke(new Action(() => {
-                    BitmapSource Userimg = BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage());
-                    saveImage(Userimg);
-				}));
+                int count = 5;
+                while(count != 0) {
+                    Application.Current.Dispatcher.Invoke(new Action(() => {
+                        BitmapSource Userimg = BitmapConverter.ConvertToBitmapSource(MainWindow.main.webCameraControl.GetCurrentImage());
+                        saveImage(Userimg, count);
+                    }));
+                    --count;
+                }
+
+                //allow 5 captures
+                count = 5;
 
                 System.Threading.Thread.Sleep(100);
 
