@@ -12,6 +12,8 @@ namespace EmotionRecognition.ViewModels {
 
         private GameClass game;
 
+        private Logger logger = new Logger();
+
         public MainWindowViewModel() {
             this.game = new GameClass();
         }
@@ -130,7 +132,7 @@ namespace EmotionRecognition.ViewModels {
 					}
 
 				} catch (UserMissingException) {
-
+                    logger.Log("GUI says: No ones there anymore. Stop the game.");
 					updateUserMsg("Spiel wurde abgebrochen! Bis zum nächsten mal!");
 
                     //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
@@ -145,7 +147,7 @@ namespace EmotionRecognition.ViewModels {
                     break;
 
 				} catch (MoreThanOneUserException) {
-
+                    logger.Log("GUI says: More than one face detected.");
                     updateUserMsg("Wir erkennen mehr als eine Person. Die Runde wurde abgebrochen!");
 
                     //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
@@ -196,6 +198,7 @@ namespace EmotionRecognition.ViewModels {
                         run();
                         break;
                     case ReturnObject.Type.Exception:
+                        logger.Log("GUI says: ReturnObject threw exception!");
                         updateUserMsg("Ein Fehler ist aufgetreten! Bitte wenden Sie sich an einen Mitarbeiter!");
                         System.Threading.Thread.Sleep(3000);
                         break;

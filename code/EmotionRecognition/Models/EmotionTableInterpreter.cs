@@ -64,6 +64,11 @@ namespace EmotionRecognition.Models
         {
             neuralNetProcess.Start();
             netOutput = neuralNetProcess.StandardOutput.ReadToEnd();
+
+            //Log netOutput
+            EmotionRecognition.Services.Logger logger = new Services.Logger();
+            logger.Log(netOutput);
+
             //1. Versuch
             netOutput = netOutput.Replace(Environment.NewLine, "");
             //2. Versuch
@@ -115,6 +120,8 @@ namespace EmotionRecognition.Models
             {
                 i_returnObject = new ReturnObject(NO_EMO_DETECED, 0, ReturnObject.Type.MoreThanOneFaceDetected);
             }
+
+            logger.Log("ReturnObject: " + i_returnObject.FaceDetected.ToString() + " " + i_returnObject.Emotion);
             
         }
 
