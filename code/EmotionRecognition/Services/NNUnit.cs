@@ -15,15 +15,8 @@ namespace EmotionRecognition.Services {
             return returnObject;
         }
 
-  //      //called to handle User Exceptions
-		//public ReturnObject.Type CheckUserExist() {
-
-  //          return analyse().FaceDetected;
-		//}
-
-        //DebugMode Version TEST!!!! DELETE Afterward1!!
+        //Check if user exist
         public ReturnObject CheckUserExist() {
-
             return analyse();
         }
     }

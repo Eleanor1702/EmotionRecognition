@@ -16,6 +16,10 @@ namespace EmotionRecognition {
             //Initialize View (GUI) Components
             InitializeComponent();
 
+            if (global.Debug) {
+                DebugModeLabel.Content = "Debug Mode Output";
+            }
+
 			//Creating a thread to allow initializing Game logic at the same time as UI Component (this thread is only responsible for logic!!)
 			//IsBackground = true makes sure that thread is terminated when Window is also terminated
 			System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(Start)) { IsBackground = true };

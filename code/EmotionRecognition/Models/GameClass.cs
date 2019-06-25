@@ -6,7 +6,7 @@ namespace EmotionRecognition.Models {
 
         private NNUnit nnUnit;
 
-        //DebugMode TEST!!
+        //DebugMode
         public ReturnObject testObj;
 
         private int points;
@@ -26,7 +26,7 @@ namespace EmotionRecognition.Models {
             //NN analyse throws an object with EmotionName, percentage and user Recognition.
             ReturnObject result = nnUnit.analyse();
 
-            //Debug Mode Ausgabe !!Deleted after Test!!!
+            //Debug Mode Ausgabe
             this.testObj = result;
 
             //check if NNUnit threw an Exception (During Game)
@@ -52,12 +52,7 @@ namespace EmotionRecognition.Models {
             return false;
         }
 
-        ////check if user Exist to Start Game
-        //public ReturnObject.Type TryToRecognizeUser() {
-        //          return nnUnit.CheckUserExist();
-        //}
-
-        //DebugMode Version TEST!! DELETE Afterward!!!
+        //check if user Exist to Start Game
         public ReturnObject TryToRecognizeUser() {
             this.testObj = nnUnit.CheckUserExist();
             return this.testObj;

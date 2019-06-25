@@ -81,9 +81,7 @@
                 </Grid.RowDefinitions>
 
                 <Border Grid.Column="0" Grid.Row="0">
-                    <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="30" Foreground="White">
-                        Debug Mode Output
-                    </Label>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="30" Foreground="White" Name="DebugModeLabel"></Label>
                 </Border>
 
                 <Border Grid.Column="0" Grid.Row="1">

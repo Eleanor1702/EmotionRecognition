@@ -51,7 +51,7 @@ namespace EmotionRecognition.ViewModels {
                 MainWindow.main.EmojiName.Content = null;
 				MainWindow.main.Points.Content = null;
 
-                //DebugMode !!TEST
+                //DebugMode
                 MainWindow.main.DebugModeOutput.Text = null;
 			}));
 
@@ -125,8 +125,9 @@ namespace EmotionRecognition.ViewModels {
                     bool result = game.CompareEmotion(emotion);
 
                     //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
-                    getDebugModeOutput(game.testObj);
-
+                    if (global.Debug) {
+                        getDebugModeOutput(game.testObj);
+                    }
                     //Rate the results and update UI
                     if (result) {
 						updateUserMsg("Jawohl! Gut gemacht!");
@@ -143,8 +144,9 @@ namespace EmotionRecognition.ViewModels {
 					updateUserMsg("Spiel wurde abgebrochen! Bis zum nächsten mal!");
 
                     //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
-                    getDebugModeOutput(game.testObj);
-
+                    if (global.Debug) {
+                        getDebugModeOutput(game.testObj);
+                    }
                     System.Threading.Thread.Sleep(5000);
 
 					//reset game
@@ -158,8 +160,9 @@ namespace EmotionRecognition.ViewModels {
                     updateUserMsg("Wir erkennen mehr als eine Person. Die Runde wurde abgebrochen!");
 
                     //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
-                    getDebugModeOutput(game.testObj);
-
+                    if (global.Debug) {
+                        getDebugModeOutput(game.testObj);
+                    }
                     System.Threading.Thread.Sleep(5000);
 
                 } catch (UnknownException) {
@@ -167,8 +170,9 @@ namespace EmotionRecognition.ViewModels {
                     updateUserMsg("Unbekannter Fehler ist aufgetreten! Die Runde wurde abgebrochen!");
 
                     //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
-                    getDebugModeOutput(game.testObj);
-
+                    if (global.Debug) {
+                        getDebugModeOutput(game.testObj);
+                    }
                     System.Threading.Thread.Sleep(5000);
                 }
 			}
@@ -204,7 +208,10 @@ namespace EmotionRecognition.ViewModels {
 
                 //DebugModeVersion TEST!! DELETE Afterward
                 recognizedUserType = game.TryToRecognizeUser().FaceDetected;
-                getDebugModeOutput(game.testObj);
+
+                if(global.Debug) {
+                    getDebugModeOutput(game.testObj);
+                }
 
                 switch (recognizedUserType) {
                     case ReturnObject.Type.FaceDetected:
