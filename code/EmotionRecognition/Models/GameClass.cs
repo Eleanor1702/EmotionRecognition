@@ -5,7 +5,10 @@ namespace EmotionRecognition.Models {
     public class GameClass {
 
         private NNUnit nnUnit;
+
+        //DebugMode TEST!!
         public ReturnObject testObj;
+
         private int points;
 
         public GameClass() {
@@ -49,10 +52,16 @@ namespace EmotionRecognition.Models {
             return false;
         }
 
-		//check if user Exist to Start Game
-		public ReturnObject.Type TryToRecognizeUser() {
-            return nnUnit.CheckUserExist();
-		}
+        ////check if user Exist to Start Game
+        //public ReturnObject.Type TryToRecognizeUser() {
+        //          return nnUnit.CheckUserExist();
+        //}
+
+        //DebugMode Version TEST!! DELETE Afterward!!!
+        public ReturnObject TryToRecognizeUser() {
+            this.testObj = nnUnit.CheckUserExist();
+            return this.testObj;
+        }
 
         //reset Game
         public void resetGame() {

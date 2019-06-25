@@ -184,7 +184,11 @@ namespace EmotionRecognition.ViewModels {
 
                 System.Threading.Thread.Sleep(100);
 
-                recognizedUserType = game.TryToRecognizeUser();
+                //recognizedUserType = game.TryToRecognizeUser();
+
+                //DebugModeVersion TEST!! DELETE Afterward
+                recognizedUserType = game.TryToRecognizeUser().FaceDetected;
+                getDebugModeOutput(game.testObj);
 
                 switch (recognizedUserType) {
                     case ReturnObject.Type.FaceDetected:
