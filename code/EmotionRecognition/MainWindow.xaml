@@ -4,7 +4,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Wpf="clr-namespace:WebEye.Controls.Wpf;assembly=WebEye.Controls.Wpf.WebCameraControl"
-        Title="Emotion Recognition" Height="1500" Width="1500" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="Black"
+        Title="Emotion Recognition" Height="1920" Width="1080" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#1b2c3e"
         Loaded="OnWindowLoaded">
 
     <!-- Better to fit Height and Width to Screen Height and Width ??-->
@@ -24,7 +24,7 @@
         <Grid Grid.Row="0" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="6*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
@@ -36,7 +36,7 @@
 
         <!-- Welcome Msg Container -->
         <Border Grid.Column="0" Grid.Row="1">
-            <TextBlock TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="40" Name="UserMessage" Foreground="White">
+            <TextBlock TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="37" Name="UserMessage" Foreground="White">
                 Bitte stellen Sie sich vor die Kamera um zu beginnen
             </TextBlock>
         </Border>
@@ -87,7 +87,7 @@
                 </Border>
 
                 <Border Grid.Column="0" Grid.Row="1">
-                    <TextBlock Name="DebugModeOutput" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="25" Foreground="White"></TextBlock>
+                    <TextBlock Name="DebugModeOutput" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="20" Foreground="White"></TextBlock>
                 </Border>
             </Grid>
 
