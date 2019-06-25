@@ -71,6 +71,8 @@
     <Compile Include="Models\RecognizedUserExceptions.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\BitmapConverter.cs" />
+    <Compile Include="Services\INIFile.cs" />
+    <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\NNUnit.cs" />
     <Compile Include="Services\RandomEmotionGenerator.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
