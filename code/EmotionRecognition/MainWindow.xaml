@@ -7,8 +7,6 @@
         Title="Emotion Recognition" Height="1920" Width="1080" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#1b2c3e"
         Loaded="OnWindowLoaded">
 
-    <!-- Better to fit Height and Width to Screen Height and Width ??-->
-
     <Grid Margin="50,80,50,50">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -35,22 +33,19 @@
                 </Grid.ColumnDefinitions>
             </Grid>
 
-            <Border Grid.Row="0" Grid.Column="0" Opacity="100">
-                <Label Name="EmojiName" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="20"></Label>
-                <!--<Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="White" >
-                    Emoji Name
-                </Label>-->
+            <Border Name="EmojiNameLabel" Grid.Row="0" Grid.Column="0">
+                <Label Name="EmojiName" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="40" Foreground="White"></Label>
             </Border>
-            
+
             <DockPanel Grid.Column="1" Grid.Row="1" Background="Black" >
-                 <!--Camera Stream-->
-               <Wpf:WebCameraControl x:Name="webCameraControl"/>
+                <!--Camera Stream-->
+                <Wpf:WebCameraControl x:Name="webCameraControl"/>
             </DockPanel>
         </Grid>
 
         <!-- Welcome Msg Container -->
         <Border Grid.Column="0" Grid.Row="1">
-            <TextBlock TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="35" Name="UserMessage" Foreground="White">Instructions</TextBlock>
+            <TextBlock TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="35" Name="UserMessage" Foreground="White"></TextBlock>
         </Border>
 
         <!-- Points and Emoji Container -->
@@ -120,11 +115,6 @@
                     <!-- Emoji -->
                     <Image Name="Emoji"></Image>
                 </Border>
-
-                <!--<Border Grid.Column="0" Grid.Row="2" Background="#979fa9" CornerRadius="0,0,10,10" BorderBrush="#979fa9" BorderThickness="1">
-                    --><!-- Emoji Name --><!--
-                    
-                </Border>-->
             </Grid>
         </Grid>
     </Grid>

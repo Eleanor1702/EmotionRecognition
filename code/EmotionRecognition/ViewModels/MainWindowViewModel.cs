@@ -32,6 +32,7 @@ namespace EmotionRecognition.ViewModels {
                 //Get generated Emoji and update Emoji Div Content
                 MainWindow.main.Emoji.Source = new BitmapImage(new Uri("Emoji/" + emotion + ".png", UriKind.Relative));
                 //Set Emoji Name
+                
                 MainWindow.main.EmojiName.Content = emotion;
             }));
         }
