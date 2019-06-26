@@ -157,7 +157,7 @@ namespace EmotionRecognition.ViewModels {
 
 				} catch (MoreThanOneUserException) {
                     logger.Log("GUI says: More than one face detected.");
-                    updateUserMsg("Wir erkennen mehr als eine Person. Die Runde wurde abgebrochen!");
+                    updateUserMsg("Wir erkennen mehr als eine Person. \n Die Runde wurde abgebrochen!");
 
                     //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
                     if (global.Debug) {
@@ -167,7 +167,7 @@ namespace EmotionRecognition.ViewModels {
 
                 } catch (UnknownException) {
 
-                    updateUserMsg("Unbekannter Fehler ist aufgetreten! Die Runde wurde abgebrochen!");
+                    updateUserMsg("Unbekannter Fehler ist aufgetreten! \n Die Runde wurde abgebrochen!");
 
                     //Update Debug Mode Output !!Just for Test, afterward DELETE!!!
                     if (global.Debug) {
@@ -220,7 +220,7 @@ namespace EmotionRecognition.ViewModels {
                         break;
                     case ReturnObject.Type.Exception:
                         logger.Log("GUI says: ReturnObject threw exception!");
-                        updateUserMsg("Ein Fehler ist aufgetreten! Bitte wenden Sie sich an einen Mitarbeiter!");
+                        updateUserMsg("Ein Fehler ist aufgetreten! \n Bitte wenden Sie sich an einen Mitarbeiter!");
                         System.Threading.Thread.Sleep(3000);
                         break;
                 }

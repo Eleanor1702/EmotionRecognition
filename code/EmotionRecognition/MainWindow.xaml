@@ -22,13 +22,27 @@
 
         <!-- Webcam Streaming Container-->
         <Grid Grid.Row="0" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="6*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
 
-            <DockPanel Grid.Column="1" Grid.Row="0" Background="Black" >
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+
+            <Border Grid.Row="0" Grid.Column="0" Opacity="100">
+                <Label Name="EmojiName" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="20"></Label>
+                <!--<Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="White" >
+                    Emoji Name
+                </Label>-->
+            </Border>
+            
+            <DockPanel Grid.Column="1" Grid.Row="1" Background="Black" >
                  <!--Camera Stream-->
                <Wpf:WebCameraControl x:Name="webCameraControl"/>
             </DockPanel>
@@ -36,9 +50,7 @@
 
         <!-- Welcome Msg Container -->
         <Border Grid.Column="0" Grid.Row="1">
-            <TextBlock TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="37" Name="UserMessage" Foreground="White">
-                Bitte stellen Sie sich vor die Kamera um zu beginnen
-            </TextBlock>
+            <TextBlock TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="35" Name="UserMessage" Foreground="White">Instructions</TextBlock>
         </Border>
 
         <!-- Points and Emoji Container -->
@@ -94,7 +106,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition Height="3*"/>
-                    <RowDefinition />
+                    <!--<RowDefinition />-->
                 </Grid.RowDefinitions>
 
                 <Border Grid.Column="0" Grid.Row="0" Background="LightSteelBlue" CornerRadius="10,10,0,0">
@@ -109,10 +121,10 @@
                     <Image Name="Emoji"></Image>
                 </Border>
 
-                <Border Grid.Column="0" Grid.Row="2" Background="#979fa9" CornerRadius="0,0,10,10" BorderBrush="#979fa9" BorderThickness="1">
-                    <!-- Emoji Name -->
-                    <Label Name="EmojiName" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Trebuchet MS" FontWeight="Bold" FontSize="20"></Label>
-                </Border>
+                <!--<Border Grid.Column="0" Grid.Row="2" Background="#979fa9" CornerRadius="0,0,10,10" BorderBrush="#979fa9" BorderThickness="1">
+                    --><!-- Emoji Name --><!--
+                    
+                </Border>-->
             </Grid>
         </Grid>
     </Grid>
