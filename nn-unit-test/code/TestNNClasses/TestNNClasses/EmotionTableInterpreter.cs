@@ -45,7 +45,7 @@ namespace EmotionRecognition.Models
                                                 "(?<" + EMO_WEIGHT_ARRAY + @"4>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*" +
                                                 "(?<" + EMO_WEIGHT_ARRAY + @"5>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)[,][ ]*" +
                                                 "(?<" + EMO_WEIGHT_ARRAY + @"6>[0-9]*[.]*[0-9]*[e]*[-|+]*[0-9]*)))";
-		private const string patternFaceFoundCount = @"(Faces found:  (?<" + FACES_FOUND_COUNT + @">[0-9]*)){1}";
+        private const string patternFaceFoundCount = @"(Faces found:  (?<" + FACES_FOUND_COUNT + @">[0-9]*)){1}";
 
         private Dictionary<string, EmoCollValue> hdEmoCollection = new Dictionary<string, EmoCollValue>(); // heighest deteced Emotions Collection
 
@@ -64,6 +64,11 @@ namespace EmotionRecognition.Models
         {
             neuralNetProcess.Start();
             netOutput = neuralNetProcess.StandardOutput.ReadToEnd();
+
+            //1. Versuch
+            netOutput = netOutput.Replace(Environment.NewLine, "");
+            //2. Versuch
+            //netOutput = Regex.Replace(netOutput, @"\r\n?|\n", "");
             netOutput = netOutput.Replace(@"\n", "");
             netOutput = netOutput.Replace(@"\r", "");
             netOutput = netOutput.Replace(@"\t", "");
@@ -89,7 +94,7 @@ namespace EmotionRecognition.Models
             }
             if (!severalFacesFound)
             {
-                if (a_matchCollection.Count >= noFaceFoundCnt)
+                if (a_matchCollection.Count > noFaceFoundCnt)
                 {
                     a_matchCollection = Regex.Matches(netOutput, patternArray);
                     if (a_matchCollection.Count > 0)
@@ -100,11 +105,10 @@ namespace EmotionRecognition.Models
                         }
                     }
                     KeyValuePair<string, EmoCollValue> resultEmo = GetEmotion();
-                    //Console.WriteLine("Deteced Emotion:\n" +
-                    //    "\t" + resultEmo.Key + " | " + resultEmo.Value.finalPercentage + "%");
+
                     i_returnObject = new ReturnObject(resultEmo.Key, resultEmo.Value.finalPercentage, ReturnObject.Type.FaceDetected);
                 }
-                else if (/*noFacesFound &&*/ a_matchCollection.Count < noFaceFoundCnt)
+                else if (/*noFacesFound &&*/ a_matchCollection.Count <= noFaceFoundCnt)
                 {
                     i_returnObject = new ReturnObject(NO_EMO_DETECED, 0, ReturnObject.Type.NoFaceDetected);
                 }
@@ -113,8 +117,6 @@ namespace EmotionRecognition.Models
             {
                 i_returnObject = new ReturnObject(NO_EMO_DETECED, 0, ReturnObject.Type.MoreThanOneFaceDetected);
             }
-
-
         }
 
         private KeyValuePair<string, EmoCollValue> GetEmotion()
@@ -206,4 +208,5 @@ namespace EmotionRecognition.Models
             }
         }
     }
+
 }

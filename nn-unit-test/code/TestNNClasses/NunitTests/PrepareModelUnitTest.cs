@@ -73,6 +73,7 @@ namespace NunitTests
             Assert.AreNotEqual(expected.Emotion, actual.Emotion);
             Assert.AreNotEqual(expected.Percentage, actual.Percentage);
             Assert.AreNotEqual(expected.FaceDetected, actual.FaceDetected);
+            NUnit.Framework.Api.
         }
 
         //Test, ob der ETI gestartet wird. Nicht nutzbar auf MacOS.
