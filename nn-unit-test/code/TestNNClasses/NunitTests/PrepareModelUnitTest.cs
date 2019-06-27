@@ -33,6 +33,11 @@ namespace NunitTests
             expected_Process.StartInfo.RedirectStandardOutput = true;
             
         }
+        [TearDown]
+        public void TearDown()
+        {
+            Test
+        }
 
         //Da der Konstruktor von PrepareModel vor allem aus der Deklaration des verwendeten Prozesses besteht,
         //wird nur getestet, ob der Prozess wie erwartet vorbereitet wird.
@@ -73,7 +78,7 @@ namespace NunitTests
             Assert.AreNotEqual(expected.Emotion, actual.Emotion);
             Assert.AreNotEqual(expected.Percentage, actual.Percentage);
             Assert.AreNotEqual(expected.FaceDetected, actual.FaceDetected);
-            NUnit.Framework.Api.
+            
         }
 
         //Test, ob der ETI gestartet wird. Nicht nutzbar auf MacOS.
