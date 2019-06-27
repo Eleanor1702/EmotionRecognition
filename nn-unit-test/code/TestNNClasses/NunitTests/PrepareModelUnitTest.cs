@@ -36,7 +36,8 @@ namespace NunitTests
         [TearDown]
         public void TearDown()
         {
-            Test
+            TestContext.CurrentContext.Test.
+
         }
 
         //Da der Konstruktor von PrepareModel vor allem aus der Deklaration des verwendeten Prozesses besteht,
