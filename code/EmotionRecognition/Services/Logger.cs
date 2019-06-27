@@ -16,13 +16,18 @@ namespace EmotionRecognition.Services
 
         public Logger()
         {
-            logFile = new INIFile(logFileName, true);
+			if (global.Debug)
+			{
+				logFile = new INIFile(logFileName, true);
+			}
         }
 
         public void Log (string logContent)
         {
-            logFile.SetValue(logSection + DateTime.Now, logKey, logContent);
+			if (global.Debug)
+			{
+				logFile.SetValue(logSection + DateTime.Now, logKey, logContent);
+			}
         }
-
     }
 }
