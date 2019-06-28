@@ -117,7 +117,7 @@
                     <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0" Background="#d62839" Opacity="1.0" CornerRadius="20" Margin="25">
+                <Border Grid.Column="0" Background="#ffffff" Opacity="1.0" CornerRadius="20" Margin="25">
                     <Label FontSize="20" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold">
                         Tipps
                     </Label>
