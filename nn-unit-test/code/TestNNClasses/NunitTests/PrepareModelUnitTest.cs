@@ -36,8 +36,13 @@ namespace NunitTests
         [TearDown]
         public void TearDown()
         {
-            TestContext.CurrentContext.Test.
-
+            string test = string.Empty;
+            var args = TestContext.CurrentContext.Test.Arguments;
+            for(int item = 0; item < args.Length;item ++)
+            {
+                test += args.GetValue(item).ToString();
+            }
+            File.WriteAllText(@"test.txt", test);
         }
 
         //Da der Konstruktor von PrepareModel vor allem aus der Deklaration des verwendeten Prozesses besteht,
