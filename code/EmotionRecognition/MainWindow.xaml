@@ -110,7 +110,7 @@
             </Grid>
         </Grid>
 
-        <Border Grid.Row="2" Background="LightSteelBlue" Margin="20, 130, 20, 20" CornerRadius="10">
+        <Border Grid.Row="2" Background="LightSteelBlue" Margin="20, 110, 20, 20" CornerRadius="10">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
